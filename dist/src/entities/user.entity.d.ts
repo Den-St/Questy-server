@@ -1,0 +1,37 @@
+import { AvatarEntity } from './avatar.entity';
+import { HashTagEntity } from './hash-tag.entity';
+import { AnswerEntity } from './answer.entity';
+import { QuestionEntity } from './question.entity';
+import { RoleEntity } from './role.entity';
+import { QuestionTemplateEntity } from './question-template.entity';
+export declare class UserEntity {
+    id: number;
+    createdAt: Date;
+    updatedAt: Date;
+    name: string;
+    gender: string;
+    favoriteHashTags: HashTagEntity[];
+    email: string;
+    occasion: string;
+    birthdate: string;
+    passwordHash: string;
+    roles: RoleEntity[];
+    questions: QuestionEntity[];
+    answers: AnswerEntity[];
+    numberOfAnswers: number;
+    numberOfQuestions: number;
+    rating: number;
+    location: string;
+    avatar: AvatarEntity;
+    isDeleted: boolean;
+    about: string;
+    createdHashTags: HashTagEntity[];
+    questionTemplates: QuestionTemplateEntity[];
+    ratedUpQuestions: QuestionEntity[];
+    ratedDownQuestions: QuestionEntity[];
+    viewedQuestions: QuestionEntity[];
+    ratedUpAnswers: AnswerEntity[];
+    ratedDownAnswers: AnswerEntity[];
+    subscribedQuestions: QuestionEntity[];
+    notSeenAnswers: AnswerEntity[];
+}
