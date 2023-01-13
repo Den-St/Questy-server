@@ -40,8 +40,11 @@ let UsersController = class UsersController {
     async softDelete(id) {
         return await this.usersService.softDelete(id);
     }
-    async getNotSeenAnswers(dto) {
-        return await this.usersService.getNotSeenAnswers(dto);
+    async getNotSeenAnswers(id) {
+        return await this.usersService.getNotSeenAnswers(id);
+    }
+    async getCorrectAnswers(id) {
+        return await this.usersService.getCorrectAnswers(id);
     }
 };
 __decorate([
@@ -87,12 +90,19 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "softDelete", null);
 __decorate([
-    (0, common_1.Post)('getNotSeenAnswers'),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.Get)('getNotSeenAnswers/:id'),
+    __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "getNotSeenAnswers", null);
+__decorate([
+    (0, common_1.Get)('getCorrectAnswers/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "getCorrectAnswers", null);
 UsersController = __decorate([
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])

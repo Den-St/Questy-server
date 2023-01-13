@@ -34,4 +34,5 @@ export declare class UserEntity {
     ratedDownAnswers: AnswerEntity[];
     subscribedQuestions: QuestionEntity[];
     notSeenAnswers: AnswerEntity[];
+    correctAnswersOnSubscribedQuestions: AnswerEntity[];
 }

@@ -48,6 +48,7 @@ export declare class UsersService {
         ratedDownAnswers: import("../entities/answer.entity").AnswerEntity[];
         subscribedQuestions: import("../entities/question.entity").QuestionEntity[];
         notSeenAnswers: import("../entities/answer.entity").AnswerEntity[];
+        correctAnswersOnSubscribedQuestions: import("../entities/answer.entity").AnswerEntity[];
     } & UserEntity>;
     setDetailedInfo(dto: SetUserDetailedInfoDto): Promise<{
         user: {
@@ -80,6 +81,7 @@ export declare class UsersService {
             ratedDownAnswers: import("../entities/answer.entity").AnswerEntity[];
             subscribedQuestions: import("../entities/question.entity").QuestionEntity[];
             notSeenAnswers: import("../entities/answer.entity").AnswerEntity[];
+            correctAnswersOnSubscribedQuestions: import("../entities/answer.entity").AnswerEntity[];
         } & UserEntity;
         token: string;
     }>;
@@ -119,6 +121,7 @@ export declare class UsersService {
         ratedDownAnswers: import("../entities/answer.entity").AnswerEntity[];
         subscribedQuestions: import("../entities/question.entity").QuestionEntity[];
         notSeenAnswers: import("../entities/answer.entity").AnswerEntity[];
+        correctAnswersOnSubscribedQuestions: import("../entities/answer.entity").AnswerEntity[];
     }>;
     getWithSubscribedQuestions(id: number): Promise<UserEntity>;
     addQuestion(dto: AddQuestionDto): Promise<{
@@ -151,6 +154,7 @@ export declare class UsersService {
         ratedDownAnswers: import("../entities/answer.entity").AnswerEntity[];
         subscribedQuestions: import("../entities/question.entity").QuestionEntity[];
         notSeenAnswers: import("../entities/answer.entity").AnswerEntity[];
+        correctAnswersOnSubscribedQuestions: import("../entities/answer.entity").AnswerEntity[];
     } & UserEntity>;
     addAnswer(dto: AddAnswerDto): Promise<{
         answers: import("../entities/answer.entity").AnswerEntity[];
@@ -182,6 +186,7 @@ export declare class UsersService {
         ratedUpAnswers: import("../entities/answer.entity").AnswerEntity[];
         ratedDownAnswers: import("../entities/answer.entity").AnswerEntity[];
         subscribedQuestions: import("../entities/question.entity").QuestionEntity[];
+        correctAnswersOnSubscribedQuestions: import("../entities/answer.entity").AnswerEntity[];
     } & UserEntity>;
     getByEmail(email: string): Promise<UserEntity>;
     generateToken(userData: UserEntity): string;
@@ -219,6 +224,7 @@ export declare class UsersService {
             ratedDownAnswers: import("../entities/answer.entity").AnswerEntity[];
             subscribedQuestions: import("../entities/question.entity").QuestionEntity[];
             notSeenAnswers: import("../entities/answer.entity").AnswerEntity[];
+            correctAnswersOnSubscribedQuestions: import("../entities/answer.entity").AnswerEntity[];
         };
         token: string;
     }>;
@@ -252,6 +258,7 @@ export declare class UsersService {
         ratedDownAnswers: import("../entities/answer.entity").AnswerEntity[];
         subscribedQuestions: import("../entities/question.entity").QuestionEntity[];
         notSeenAnswers: import("../entities/answer.entity").AnswerEntity[];
+        correctAnswersOnSubscribedQuestions: import("../entities/answer.entity").AnswerEntity[];
     } & UserEntity>;
     upQuestionNumber(id: number): Promise<{
         numberOfQuestions: number;
@@ -283,6 +290,7 @@ export declare class UsersService {
         ratedDownAnswers: import("../entities/answer.entity").AnswerEntity[];
         subscribedQuestions: import("../entities/question.entity").QuestionEntity[];
         notSeenAnswers: import("../entities/answer.entity").AnswerEntity[];
+        correctAnswersOnSubscribedQuestions: import("../entities/answer.entity").AnswerEntity[];
     } & UserEntity>;
     addToCreatedHashTags(userId: number, hashTag: HashTagEntity): Promise<{
         createdHashTags: HashTagEntity[];
@@ -314,9 +322,9 @@ export declare class UsersService {
         ratedDownAnswers: import("../entities/answer.entity").AnswerEntity[];
         subscribedQuestions: import("../entities/question.entity").QuestionEntity[];
         notSeenAnswers: import("../entities/answer.entity").AnswerEntity[];
+        correctAnswersOnSubscribedQuestions: import("../entities/answer.entity").AnswerEntity[];
     } & UserEntity>;
     getWithViewedQuestions(id: number): Promise<UserEntity>;
-    getNotSeenAnswers(dto: {
-        userId: number;
-    }): Promise<UserEntity>;
+    getNotSeenAnswers(id: number): Promise<UserEntity>;
+    getCorrectAnswers(id: number): Promise<UserEntity>;
 }

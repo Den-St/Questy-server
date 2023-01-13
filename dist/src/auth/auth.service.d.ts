@@ -40,6 +40,7 @@ export declare class AuthService {
         ratedDownAnswers: import("../entities/answer.entity").AnswerEntity[];
         subscribedQuestions: import("../entities/question.entity").QuestionEntity[];
         notSeenAnswers: import("../entities/answer.entity").AnswerEntity[];
+        correctAnswersOnSubscribedQuestions: import("../entities/answer.entity").AnswerEntity[];
     };
     generateToken(userData: UserEntity): string;
 }

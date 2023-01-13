@@ -36,5 +36,6 @@ export declare class AuthController {
         ratedDownAnswers: import("../entities/answer.entity").AnswerEntity[];
         subscribedQuestions: import("../entities/question.entity").QuestionEntity[];
         notSeenAnswers: import("../entities/answer.entity").AnswerEntity[];
+        correctAnswersOnSubscribedQuestions: import("../entities/answer.entity").AnswerEntity[];
     };
 }

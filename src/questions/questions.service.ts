@@ -115,6 +115,10 @@ export class QuestionsService {
         return question;
     }
 
+    async getWithSubscribers(id:number) {
+        return await this.questionsRepository.findOne({where:{id},relations:['subscribers']});
+    }   
+
     async rateUp(dto:RateQuestionDto){
         const user = await this.usersService.getByIdWithRatedUpQuestions(dto.userId);
         const question = await this.questionsRepository.findOne({where:{id:dto.questionId},relations:['ratedUpUsers']});
@@ -187,7 +191,7 @@ export class QuestionsService {
    }
 
    async seeAnswers(dto:SeeAnswersDto) {
-    const user = await this.usersService.getNotSeenAnswers({userId:dto.userId});
+    const user = await this.usersService.getNotSeenAnswers(dto.userId);
 
     return await this.usersService.save({...user,notSeenAnswers:[...user.notSeenAnswers.filter(answer => answer.question.id !== dto.questionId)]});
    }

@@ -39,8 +39,15 @@ export class UsersController {
         return await this.usersService.softDelete(id);
     }
 
-    @Post('getNotSeenAnswers')
-    async getNotSeenAnswers(@Body() dto:{userId:number}) {
-        return await this.usersService.getNotSeenAnswers(dto);
+    @Get('getNotSeenAnswers/:id')
+    async getNotSeenAnswers(@Param('id') id:number) {
+        return await this.usersService.getNotSeenAnswers(id);
     }
+
+    @Get('getCorrectAnswers/:id')
+    async getCorrectAnswers(@Param('id') id:number) {
+        return await this.usersService.getCorrectAnswers(id);
+    }
+
+  
 }

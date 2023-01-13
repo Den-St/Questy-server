@@ -36,6 +36,7 @@ export declare class AnswersController {
             ratedUpAnswers: import("../entities/answer.entity").AnswerEntity[];
             ratedDownAnswers: import("../entities/answer.entity").AnswerEntity[];
             subscribedQuestions: import("../entities/question.entity").QuestionEntity[];
+            correctAnswersOnSubscribedQuestions: import("../entities/answer.entity").AnswerEntity[];
         } & import("../entities/user.entity").UserEntity;
         question: {
             answers: import("../entities/answer.entity").AnswerEntity[];
@@ -64,6 +65,7 @@ export declare class AnswersController {
         ratedUpUsers: import("../entities/user.entity").UserEntity[];
         ratedDownUsers: import("../entities/user.entity").UserEntity[];
         subscribersWhoHaveNotSeen: import("../entities/user.entity").UserEntity[];
+        subscribers: import("../entities/user.entity").UserEntity[];
     } & import("../entities/answer.entity").AnswerEntity>;
     getByUserId(id: number): Promise<import("../entities/answer.entity").AnswerEntity[]>;
     getByUserIdPaginated(dto: GetByUserIdPaginatedDto): Promise<{
@@ -83,6 +85,7 @@ export declare class AnswersController {
         correct: boolean;
         ratedDownUsers: import("../entities/user.entity").UserEntity[];
         subscribersWhoHaveNotSeen: import("../entities/user.entity").UserEntity[];
+        subscribers: import("../entities/user.entity").UserEntity[];
     } & import("../entities/answer.entity").AnswerEntity>;
     rateDown(dto: RateAnswerDto): Promise<{
         rating: number;
@@ -96,6 +99,7 @@ export declare class AnswersController {
         correct: boolean;
         ratedUpUsers: import("../entities/user.entity").UserEntity[];
         subscribersWhoHaveNotSeen: import("../entities/user.entity").UserEntity[];
+        subscribers: import("../entities/user.entity").UserEntity[];
     } & import("../entities/answer.entity").AnswerEntity>;
     cancelRating(dto: RateAnswerDto): Promise<{
         rating: number;
@@ -109,11 +113,13 @@ export declare class AnswersController {
         correct: boolean;
         ratedDownUsers: import("../entities/user.entity").UserEntity[];
         subscribersWhoHaveNotSeen: import("../entities/user.entity").UserEntity[];
+        subscribers: import("../entities/user.entity").UserEntity[];
     } & import("../entities/answer.entity").AnswerEntity>;
     correct(dto: {
         answerId: number;
     }): Promise<{
         correct: boolean;
+        subscribers: import("../entities/user.entity").UserEntity[];
         id: number;
         createdAt: Date;
         updatedAt: Date;

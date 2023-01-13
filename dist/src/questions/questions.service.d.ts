@@ -64,6 +64,7 @@ export declare class QuestionsService {
         total: number;
     }>;
     get(id: number): Promise<QuestionEntity>;
+    getWithSubscribers(id: number): Promise<QuestionEntity>;
     rateUp(dto: RateQuestionDto): Promise<{
         rating: number;
         ratedUpUsers: import("../entities/user.entity").UserEntity[];

@@ -35,6 +35,7 @@ export declare class UsersController {
         ratedDownAnswers: import("../entities/answer.entity").AnswerEntity[];
         subscribedQuestions: import("../entities/question.entity").QuestionEntity[];
         notSeenAnswers: import("../entities/answer.entity").AnswerEntity[];
+        correctAnswersOnSubscribedQuestions: import("../entities/answer.entity").AnswerEntity[];
     } & import("../entities/user.entity").UserEntity>;
     setDetailedInfo(dto: SetUserDetailedInfoDto): Promise<{
         user: {
@@ -67,6 +68,7 @@ export declare class UsersController {
             ratedDownAnswers: import("../entities/answer.entity").AnswerEntity[];
             subscribedQuestions: import("../entities/question.entity").QuestionEntity[];
             notSeenAnswers: import("../entities/answer.entity").AnswerEntity[];
+            correctAnswersOnSubscribedQuestions: import("../entities/answer.entity").AnswerEntity[];
         } & import("../entities/user.entity").UserEntity;
         token: string;
     }>;
@@ -105,6 +107,7 @@ export declare class UsersController {
             ratedDownAnswers: import("../entities/answer.entity").AnswerEntity[];
             subscribedQuestions: import("../entities/question.entity").QuestionEntity[];
             notSeenAnswers: import("../entities/answer.entity").AnswerEntity[];
+            correctAnswersOnSubscribedQuestions: import("../entities/answer.entity").AnswerEntity[];
         };
         token: string;
     }>;
@@ -138,8 +141,8 @@ export declare class UsersController {
         ratedDownAnswers: import("../entities/answer.entity").AnswerEntity[];
         subscribedQuestions: import("../entities/question.entity").QuestionEntity[];
         notSeenAnswers: import("../entities/answer.entity").AnswerEntity[];
+        correctAnswersOnSubscribedQuestions: import("../entities/answer.entity").AnswerEntity[];
     } & import("../entities/user.entity").UserEntity>;
-    getNotSeenAnswers(dto: {
-        userId: number;
-    }): Promise<import("../entities/user.entity").UserEntity>;
+    getNotSeenAnswers(id: number): Promise<import("../entities/user.entity").UserEntity>;
+    getCorrectAnswers(id: number): Promise<import("../entities/user.entity").UserEntity>;
 }

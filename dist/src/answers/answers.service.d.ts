@@ -41,6 +41,7 @@ export declare class AnswersService {
             ratedUpAnswers: AnswerEntity[];
             ratedDownAnswers: AnswerEntity[];
             subscribedQuestions: import("../entities/question.entity").QuestionEntity[];
+            correctAnswersOnSubscribedQuestions: AnswerEntity[];
         } & import("../entities/user.entity").UserEntity;
         question: {
             answers: AnswerEntity[];
@@ -69,6 +70,7 @@ export declare class AnswersService {
         ratedUpUsers: import("../entities/user.entity").UserEntity[];
         ratedDownUsers: import("../entities/user.entity").UserEntity[];
         subscribersWhoHaveNotSeen: import("../entities/user.entity").UserEntity[];
+        subscribers: import("../entities/user.entity").UserEntity[];
     } & AnswerEntity>;
     getByUserId(id: number): Promise<AnswerEntity[]>;
     getByUserIdPaginated(dto: GetByUserIdPaginatedDto): Promise<{
@@ -88,6 +90,7 @@ export declare class AnswersService {
         correct: boolean;
         ratedDownUsers: import("../entities/user.entity").UserEntity[];
         subscribersWhoHaveNotSeen: import("../entities/user.entity").UserEntity[];
+        subscribers: import("../entities/user.entity").UserEntity[];
     } & AnswerEntity>;
     rateDown(dto: RateAnswerDto): Promise<{
         rating: number;
@@ -101,6 +104,7 @@ export declare class AnswersService {
         correct: boolean;
         ratedUpUsers: import("../entities/user.entity").UserEntity[];
         subscribersWhoHaveNotSeen: import("../entities/user.entity").UserEntity[];
+        subscribers: import("../entities/user.entity").UserEntity[];
     } & AnswerEntity>;
     cancelRating(dto: RateAnswerDto): Promise<{
         rating: number;
@@ -114,9 +118,11 @@ export declare class AnswersService {
         correct: boolean;
         ratedDownUsers: import("../entities/user.entity").UserEntity[];
         subscribersWhoHaveNotSeen: import("../entities/user.entity").UserEntity[];
+        subscribers: import("../entities/user.entity").UserEntity[];
     } & AnswerEntity>;
     correct(id: number): Promise<{
         correct: boolean;
+        subscribers: import("../entities/user.entity").UserEntity[];
         id: number;
         createdAt: Date;
         updatedAt: Date;

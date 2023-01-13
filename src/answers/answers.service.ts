@@ -101,10 +101,14 @@ export class AnswersService {
     }
 
     async correct(id:number) {
-        const answer = await this.answersRepository.findOne({where:{id},relations:['question']});
-        const question = await this.questionsService.get(answer.question.id);
+        const answer = await this.answersRepository.findOne({where:{id},relations:['question','subscribers']});
+        const question = await this.questionsService.getWithSubscribers(answer.question.id);
 
+        if(answer.correct) return;
+        // for(let i = 0;i < answer.subscribers.length;i++) {
+        //     await this.usersService.save({...answer.subscribers[i],correctAnswersOnSubscribedQuestions:[...answer.subscribers[i].correctAnswersOnSubscribedQuestions,answer]})
+        // }
         await this.questionsService.save({...question,haveCorrectAnswer:!question.haveCorrectAnswer});
-        return await this.answersRepository.save({...answer,correct:!answer.correct});
+        return await this.answersRepository.save({...answer,correct:!answer.correct,subscribers:[...question.subscribers]});
     }
 }

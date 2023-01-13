@@ -89,6 +89,9 @@ let QuestionsService = class QuestionsService {
         console.log('q', question);
         return question;
     }
+    async getWithSubscribers(id) {
+        return await this.questionsRepository.findOne({ where: { id }, relations: ['subscribers'] });
+    }
     async rateUp(dto) {
         const user = await this.usersService.getByIdWithRatedUpQuestions(dto.userId);
         const question = await this.questionsRepository.findOne({ where: { id: dto.questionId }, relations: ['ratedUpUsers'] });
@@ -137,7 +140,7 @@ let QuestionsService = class QuestionsService {
         return await this.usersService.save(Object.assign(Object.assign({}, user), { subscribedQuestions: [...user.subscribedQuestions.filter(question => question.id !== dto.questionId)] }));
     }
     async seeAnswers(dto) {
-        const user = await this.usersService.getNotSeenAnswers({ userId: dto.userId });
+        const user = await this.usersService.getNotSeenAnswers(dto.userId);
         return await this.usersService.save(Object.assign(Object.assign({}, user), { notSeenAnswers: [...user.notSeenAnswers.filter(answer => answer.question.id !== dto.questionId)] }));
     }
 };

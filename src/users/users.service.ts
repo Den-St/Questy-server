@@ -191,7 +191,13 @@ export class UsersService {
         return await this.userRepository.findOne({where:{id},relations:['viewedQuestions']});
     }
 
-    async getNotSeenAnswers(dto:{userId:number}){
-        return await this.userRepository.findOne({where:{id:dto.userId},relations:['notSeenAnswers','notSeenAnswers.question']})
+    async getNotSeenAnswers(id:number){
+        return await this.userRepository.findOne({where:{id},relations:['notSeenAnswers','notSeenAnswers.question']})
     }
+
+    async getCorrectAnswers(id:number) {
+        return await this.userRepository.findOne({where:{id},relations:['correctAnswersOnSubscribedQuestions','correctAnswersOnSubscribedQuestions.question']});
+    }
+
+   
 }

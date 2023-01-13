@@ -12,4 +12,5 @@ export declare class AnswerEntity {
     ratedUpUsers: UserEntity[];
     ratedDownUsers: UserEntity[];
     subscribersWhoHaveNotSeen: UserEntity[];
+    subscribers: UserEntity[];
 }

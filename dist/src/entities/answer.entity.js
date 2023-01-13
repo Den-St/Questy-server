@@ -62,6 +62,10 @@ __decorate([
     (0, typeorm_1.JoinTable)(),
     __metadata("design:type", Array)
 ], AnswerEntity.prototype, "subscribersWhoHaveNotSeen", void 0);
+__decorate([
+    (0, typeorm_1.ManyToMany)(() => user_entity_1.UserEntity, user => user.correctAnswersOnSubscribedQuestions),
+    __metadata("design:type", Array)
+], AnswerEntity.prototype, "subscribers", void 0);
 AnswerEntity = __decorate([
     (0, typeorm_1.Entity)()
 ], AnswerEntity);

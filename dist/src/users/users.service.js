@@ -170,8 +170,11 @@ let UsersService = class UsersService {
     async getWithViewedQuestions(id) {
         return await this.userRepository.findOne({ where: { id }, relations: ['viewedQuestions'] });
     }
-    async getNotSeenAnswers(dto) {
-        return await this.userRepository.findOne({ where: { id: dto.userId }, relations: ['notSeenAnswers', 'notSeenAnswers.question'] });
+    async getNotSeenAnswers(id) {
+        return await this.userRepository.findOne({ where: { id }, relations: ['notSeenAnswers', 'notSeenAnswers.question'] });
+    }
+    async getCorrectAnswers(id) {
+        return await this.userRepository.findOne({ where: { id }, relations: ['correctAnswersOnSubscribedQuestions', 'correctAnswersOnSubscribedQuestions.question'] });
     }
 };
 UsersService = __decorate([

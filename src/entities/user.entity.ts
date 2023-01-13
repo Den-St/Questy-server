@@ -103,5 +103,9 @@ export class UserEntity {
 
    @ManyToMany(() => AnswerEntity,answer => answer.subscribersWhoHaveNotSeen)
    notSeenAnswers:AnswerEntity[];
+
+   @ManyToMany(() => AnswerEntity,answer => answer.subscribers)
+   @JoinTable()
+   correctAnswersOnSubscribedQuestions:AnswerEntity[];
 }
 
