@@ -62,6 +62,9 @@ let QuestionsController = class QuestionsController {
     async seeAnswers(dto) {
         return await this.questionService.seeAnswers(dto);
     }
+    async globalSearch(name) {
+        return await this.questionService.globalSearch(name);
+    }
 };
 __decorate([
     (0, common_1.Get)("getByUserId/:id"),
@@ -147,6 +150,13 @@ __decorate([
     __metadata("design:paramtypes", [see_answers_dto_1.SeeAnswersDto]),
     __metadata("design:returntype", Promise)
 ], QuestionsController.prototype, "seeAnswers", null);
+__decorate([
+    (0, common_1.Get)('globalSearch/:name'),
+    __param(0, (0, common_1.Param)('name')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], QuestionsController.prototype, "globalSearch", null);
 QuestionsController = __decorate([
     (0, common_1.Controller)('questions'),
     __metadata("design:paramtypes", [questions_service_1.QuestionsService])

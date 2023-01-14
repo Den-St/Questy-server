@@ -67,11 +67,16 @@ export class QuestionsController {
     @Post('unsubscribe')
     async unsubscribe(@Body() dto:SubscribeDto) {
         return await this.questionService.unsubscribe(dto);
-
     }
+
     @Post('seeAnswers')
     async seeAnswers(@Body() dto:SeeAnswersDto){
         return await this.questionService.seeAnswers(dto)
+    }
+
+    @Get('globalSearch/:name')
+    async globalSearch(@Param('name') name:string) {
+        return await this.questionService.globalSearch(name);
     }
 }
 

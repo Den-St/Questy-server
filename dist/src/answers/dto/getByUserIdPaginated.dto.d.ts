@@ -5,6 +5,6 @@ export declare class GetByUserIdPaginatedDto {
     pageSize: number;
 }
 export declare class OrderRuleT {
-    fieldName: 'rating' | 'views' | 'answersNumber' | 'createdAt' | 'questionsNumber' | 'followersNumber';
+    fieldName: 'rating' | 'views' | 'answersNumber' | 'createdAt' | 'questionsNumber' | 'followersNumber' | 'numberOfAnswers';
     orderValue: 'DESC' | 'ASC';
 }

@@ -54,7 +54,7 @@ let AnswersService = class AnswersService {
     }
     async getByQuestionId(id) {
         const answers = await this.answersRepository.find({
-            where: { 'question': { id } }, relations: ['creator', 'ratedUpUsers', 'ratedDownUsers'],
+            where: { 'question': { id } }, relations: ['creator', 'ratedUpUsers', 'ratedDownUsers', 'question', 'question.creator'],
             order: { 'rating': "DESC" }
         });
         return answers;

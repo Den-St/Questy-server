@@ -130,7 +130,7 @@ export class UsersService {
         const [users,total] = await this.userRepository
         .findAndCount({
             take,skip
-            ,relations:['createdHashTags']
+            ,relations:['createdHashTags','avatar']
             ,where:{name:Like(`%${dto.search || ""}%`)}
             ,order:{[dto?.orderRule?.fieldName || 'createdAt']:dto.orderRule.orderValue || 'DESC'}
 

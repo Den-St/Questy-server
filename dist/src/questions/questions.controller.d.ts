@@ -129,4 +129,9 @@ export declare class QuestionsController {
     } & import("../entities/question.entity").QuestionEntity>;
     unsubscribe(dto: SubscribeDto): Promise<Partial<import("../entities/user.entity").UserEntity> & import("../entities/user.entity").UserEntity>;
     seeAnswers(dto: SeeAnswersDto): Promise<Partial<import("../entities/user.entity").UserEntity> & import("../entities/user.entity").UserEntity>;
+    globalSearch(name: string): Promise<{
+        questions: import("../entities/question.entity").QuestionEntity[];
+        users: import("../entities/user.entity").UserEntity[];
+        hashTags: import("../entities/hash-tag.entity").HashTagEntity[];
+    }>;
 }

@@ -8,7 +8,8 @@ export class GetByUserIdPaginatedDto {
 export class OrderRuleT {
     fieldName:'rating' | 'views' |
               'answersNumber' | 'createdAt' | 
-              'questionsNumber' | 'followersNumber'
+              'questionsNumber' | 'followersNumber' |
+              'numberOfAnswers'
 
 
     orderValue:'DESC' | 'ASC'

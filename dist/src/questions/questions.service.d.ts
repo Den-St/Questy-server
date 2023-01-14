@@ -158,4 +158,9 @@ export declare class QuestionsService {
     } & QuestionEntity>;
     unsubscribe(dto: SubscribeDto): Promise<Partial<import("../entities/user.entity").UserEntity> & import("../entities/user.entity").UserEntity>;
     seeAnswers(dto: SeeAnswersDto): Promise<Partial<import("../entities/user.entity").UserEntity> & import("../entities/user.entity").UserEntity>;
+    globalSearch(name: string): Promise<{
+        questions: QuestionEntity[];
+        users: import("../entities/user.entity").UserEntity[];
+        hashTags: HashTagEntity[];
+    }>;
 }

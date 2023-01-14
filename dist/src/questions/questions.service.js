@@ -143,6 +143,39 @@ let QuestionsService = class QuestionsService {
         const user = await this.usersService.getNotSeenAnswers(dto.userId);
         return await this.usersService.save(Object.assign(Object.assign({}, user), { notSeenAnswers: [...user.notSeenAnswers.filter(answer => answer.question.id !== dto.questionId)] }));
     }
+    async globalSearch(name) {
+        const take = 5;
+        const skip = 0;
+        const questions = await this.questionsRepository.find({
+            where: { title: (0, typeorm_2.Like)(`%${name}%`) },
+            take,
+            skip,
+            order: { 'rating': 'DESC' }
+        });
+        const { hashTags } = await this.hashTagsService.getPaginated({
+            orderRule: {
+                fieldName: 'questionsNumber',
+                orderValue: 'DESC'
+            },
+            page: 1,
+            pageSize: 5,
+            search: name
+        });
+        const { users } = await this.usersService.getAllPaginate({
+            orderRule: {
+                fieldName: 'numberOfAnswers',
+                orderValue: 'DESC'
+            },
+            page: 1,
+            pageSize: 5,
+            search: name
+        });
+        return {
+            questions,
+            users,
+            hashTags,
+        };
+    }
 };
 QuestionsService = __decorate([
     (0, common_1.Injectable)(),

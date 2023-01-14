@@ -125,7 +125,7 @@ let UsersService = class UsersService {
         const [users, total] = await this.userRepository
             .findAndCount({
             take, skip,
-            relations: ['createdHashTags'],
+            relations: ['createdHashTags', 'avatar'],
             where: { name: (0, typeorm_2.Like)(`%${dto.search || ""}%`) },
             order: { [((_a = dto === null || dto === void 0 ? void 0 : dto.orderRule) === null || _a === void 0 ? void 0 : _a.fieldName) || 'createdAt']: dto.orderRule.orderValue || 'DESC' }
         });

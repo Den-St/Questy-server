@@ -195,6 +195,45 @@ export class QuestionsService {
 
     return await this.usersService.save({...user,notSeenAnswers:[...user.notSeenAnswers.filter(answer => answer.question.id !== dto.questionId)]});
    }
+
+   async globalSearch(name:string) {
+    const take = 5;
+    const skip = 0;
+
+    const questions = await this.questionsRepository.find({
+        where:{title:Like(`%${name}%`)},
+        take,
+        skip,
+        order:{'rating':'DESC'}
+    });
+
+    const {hashTags} = await this.hashTagsService.getPaginated({
+        orderRule:{
+            fieldName:'questionsNumber',
+            orderValue:'DESC'
+        },
+        page:1,
+        pageSize:5,
+        search:name
+    });
+    const {users} = await this.usersService.getAllPaginate({
+        orderRule:{
+            fieldName:'numberOfAnswers',
+            orderValue:'DESC'
+        },
+        page:1,
+        pageSize:5,
+        search:name
+    })
+
+    return {
+        questions,
+        users,
+        hashTags,
+    }
+   }
+
+
 }
 
 
