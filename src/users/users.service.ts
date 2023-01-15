@@ -144,20 +144,23 @@ export class UsersService {
 
     async edit(dto:SetUserDetailedInfoDto) {
         const user = await this.userRepository.findOne({where:{id:dto.userId}});
-
+        console.log(dto);
+        console.log(dto.favoriteHashTags);
         const hashTags:HashTagEntity[] = [];
-
-        for(let i = 0;i < dto.favoriteHashTags?.length;i++) {
-            let hashTag = await this.hashTagsService.getByName(dto.favoriteHashTags[i]);
-            await this.hashTagsService.upPopularity(hashTag.id);
-            hashTags.push(hashTag);
+        if(!!dto.favoriteHashTags){
+            for(let i = 0;i < dto.favoriteHashTags?.length;i++) {
+                let hashTag = await this.hashTagsService.getByName(dto.favoriteHashTags[i]);
+                await this.hashTagsService.upPopularity(hashTag.id);
+                hashTags.push(hashTag);
+            }
         }
+        
         let newAvatar;
         if(dto.avatarPath) {
             newAvatar = await this.imagesService.create(dto.avatarPath,user.id);
         }
 
-        const newUser = await this.userRepository.save({...user,name:dto.name,favoriteHashTags:hashTags,
+        const newUser = await this.userRepository.save({...user,name:dto.name,favoriteHashTags:(!!dto.favoriteHashTags ? hashTags : user.favoriteHashTags),
             gender:dto.gender,avatar:newAvatar,occasion:dto.occasion,birthdate:dto.birthdate,location:dto.location,about:dto.about});
         const {passwordHash,...clientUser} = newUser;
         return {
