@@ -20,6 +20,7 @@ const avatars_module_1 = require("./avatars/avatars.module");
 const questions_module_1 = require("./questions/questions.module");
 const question_templates_controller_1 = require("./question-templates/question-templates.controller");
 const question_templates_module_1 = require("./question-templates/question-templates.module");
+const path = require("path");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -40,4 +41,5 @@ AppModule = __decorate([
     })
 ], AppModule);
 exports.AppModule = AppModule;
+console.log(path.resolve('uploads/profileimages'));
 //# sourceMappingURL=app.module.js.map

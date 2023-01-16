@@ -11,6 +11,8 @@ import { AvatarsModule } from './avatars/avatars.module';
 import { QuestionsModule } from './questions/questions.module';
 import { QuestionTemplatesController } from './question-templates/question-templates.controller';
 import { QuestionTemplatesModule } from './question-templates/question-templates.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import * as path from 'path';
 
 @Module({
   imports: [
@@ -24,7 +26,11 @@ import { QuestionTemplatesModule } from './question-templates/question-templates
     AuthModule,
     AvatarsModule,
     QuestionTemplatesModule,
+    // ServeStaticModule.forRoot({
+    //   rootPath: path.resolve('uploads/profileimages'),
+    // }),
   ],
   controllers: [QuestionTemplatesController],
 })
 export class AppModule {}
+console.log(path.resolve('uploads/profileimages'))

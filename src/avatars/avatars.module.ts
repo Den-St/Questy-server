@@ -17,6 +17,7 @@ import { MulterModule } from '@nestjs/platform-express';
       useFactory: () => ({
         dest: 'uploads/profileimages',
       }),
+      
     })
   ]
 })

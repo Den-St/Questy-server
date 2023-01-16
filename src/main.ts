@@ -1,18 +1,20 @@
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import {ConfigService} from '@nestjs/config';
-import { json, urlencoded } from 'express';
+import { join } from 'path';
+import * as path from 'path';
+import * as express from 'express';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const config = app.get(ConfigService);
   const port = config.get<number>('API_PORT');
-  app.use(json({limit: '50mb'}));
-  app.use(urlencoded({limit: '50mb', extended: true}));
   app.enableCors();
-    
+  app.use('/uploads/profileimages',express.static(join(process.cwd(), '/uploads/profileimages')));
   await app.listen(port,() => {
     console.log("started at ",port);
   });
 }
+
 bootstrap();
