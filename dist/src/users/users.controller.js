@@ -46,6 +46,15 @@ let UsersController = class UsersController {
     async getCorrectAnswers(id) {
         return await this.usersService.getCorrectAnswers(id);
     }
+    async getFavoriteHashTags(id) {
+        return await this.usersService.getFavoriteHashTags(id);
+    }
+    async removeFavoriteHashTag(dto) {
+        return await this.usersService.removeFavoriteHashTag(dto);
+    }
+    async addToFavoriteHashTag(dto) {
+        return await this.usersService.addToFavoriteHashTag(dto);
+    }
 };
 __decorate([
     (0, common_1.Post)('create'),
@@ -103,6 +112,27 @@ __decorate([
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "getCorrectAnswers", null);
+__decorate([
+    (0, common_1.Get)('getFavoriteHashTags/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "getFavoriteHashTags", null);
+__decorate([
+    (0, common_1.Post)('removeFavoriteHashTag'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "removeFavoriteHashTag", null);
+__decorate([
+    (0, common_1.Post)('addToFavoriteHashTag'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "addToFavoriteHashTag", null);
 UsersController = __decorate([
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])

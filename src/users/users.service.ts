@@ -202,5 +202,23 @@ export class UsersService {
         return await this.userRepository.findOne({where:{id},relations:['correctAnswersOnSubscribedQuestions','correctAnswersOnSubscribedQuestions.question']});
     }
 
-   
+   async getFavoriteHashTags(id:number) {
+    return await this.userRepository.findOne({where:{id},relations:['favoriteHashTags']});
+   }
+
+   async removeFavoriteHashTag(dto:{userId:number,hashTagId:number}) {
+    const user = await this.userRepository.findOne({where:{id:dto.userId},relations:['favoriteHashTags']});
+    const hashTag = await this.hashTagsService.removeFollower({userId:dto.userId,hashTagId:dto.hashTagId});
+
+    return await this.userRepository
+        .save({...user,favoriteHashTags:[...user.favoriteHashTags.filter(hashTag => hashTag.id !== dto.hashTagId)]});
+   }
+
+   async addToFavoriteHashTag(dto:{userId:number,hashTagId:number}) {
+    const user = await this.userRepository.findOne({where:{id:dto.userId},relations:['favoriteHashTags']});
+    const hashTag = await this.hashTagsService.addFollower({user,hashTagId:dto.hashTagId});
+
+    return await this.userRepository
+        .save({...user,favoriteHashTags:[...user.favoriteHashTags,hashTag]});
+   }
 }

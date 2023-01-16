@@ -7,6 +7,7 @@ import { Repository ,Like } from 'typeorm';
 import { CreateHashTagDto } from './dto/create.dto';
 import { GetPaginatedDto } from 'src/users/dto/GetPaginated.dto';
 import { GetPaginatedQuestions } from './dto/getPaginatedQuestions.dto';
+import { UserEntity } from 'src/entities/user.entity';
 
 @Injectable()
 export class HashTagsService {
@@ -115,5 +116,26 @@ export class HashTagsService {
         //     hashTags,
         //     total
         // }
+    }
+
+    async getWithFollowers(id:number) {
+        return await this.hashtagRepository.findOne({where:{id},relations:['followers']});
+    }
+
+    async addFollower(dto:{user:UserEntity,hashTagId:number}) {
+        const hashTag = await this.hashtagRepository.findOne({where:{id:dto.hashTagId}});
+
+        return await this.hashtagRepository.save({...hashTag,followersNumber:hashTag.followersNumber + 1});
+        // return await this.hashtagRepository.save({...hashTag,followers:[...hashTag.followers,dto.user],followersNumber:hashTag.followersNumber + 1});
+    }
+
+    async removeFollower(dto:{userId:number,hashTagId:number}){
+        const hashTag = await this.hashtagRepository.findOne({where:{id:dto.hashTagId}});
+
+        return await this.hashtagRepository
+            .save({...hashTag,followersNumber:hashTag.followersNumber - 1});
+
+        // return await this.hashtagRepository
+        //     .save({...hashTag,followers:[...hashTag.followers.filter(user => user.id !== dto.userId)],followersNumber:hashTag.followersNumber - 1});
     }
 }

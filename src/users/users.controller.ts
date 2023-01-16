@@ -49,5 +49,18 @@ export class UsersController {
         return await this.usersService.getCorrectAnswers(id);
     }
 
-  
+    @Get('getFavoriteHashTags/:id')
+    async getFavoriteHashTags(@Param('id') id:number) {
+        return await this.usersService.getFavoriteHashTags(id);
+    }
+
+    @Post('removeFavoriteHashTag')
+    async removeFavoriteHashTag(@Body() dto:{userId:number,hashTagId:number}) {
+        return await this.usersService.removeFavoriteHashTag(dto);
+    }
+
+    @Post('addToFavoriteHashTag')
+    async addToFavoriteHashTag(@Body() dto:{userId:number,hashTagId:number}) {
+        return await this.usersService.addToFavoriteHashTag(dto);
+    }
 }

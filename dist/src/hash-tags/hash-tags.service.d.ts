@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { CreateHashTagDto } from './dto/create.dto';
 import { GetPaginatedDto } from 'src/users/dto/GetPaginated.dto';
 import { GetPaginatedQuestions } from './dto/getPaginatedQuestions.dto';
+import { UserEntity } from 'src/entities/user.entity';
 export declare class HashTagsService {
     private readonly hashtagRepository;
     private readonly userService;
@@ -15,11 +16,11 @@ export declare class HashTagsService {
         createdAt: Date;
         updatedAt: Date;
         name: string;
-        followers: import("../entities/user.entity").UserEntity[];
+        followers: UserEntity[];
         followersNumber: number;
         questions: import("../entities/question.entity").QuestionEntity[];
         questionsNumber: number;
-        creator: import("../entities/user.entity").UserEntity;
+        creator: UserEntity;
         questionTemplates: import("../entities/question-template.entity").QuestionTemplateEntity[];
         description: string;
     } & HashTagEntity>;
@@ -32,10 +33,10 @@ export declare class HashTagsService {
         createdAt: Date;
         updatedAt: Date;
         name: string;
-        followers: import("../entities/user.entity").UserEntity[];
+        followers: UserEntity[];
         questions: import("../entities/question.entity").QuestionEntity[];
         questionsNumber: number;
-        creator: import("../entities/user.entity").UserEntity;
+        creator: UserEntity;
         questionTemplates: import("../entities/question-template.entity").QuestionTemplateEntity[];
         description: string;
     } & HashTagEntity>;
@@ -50,4 +51,37 @@ export declare class HashTagsService {
         total: number;
     }>;
     getPaginatedQuestions(dto: GetPaginatedQuestions): Promise<void>;
+    getWithFollowers(id: number): Promise<HashTagEntity>;
+    addFollower(dto: {
+        user: UserEntity;
+        hashTagId: number;
+    }): Promise<{
+        followersNumber: number;
+        id: number;
+        createdAt: Date;
+        updatedAt: Date;
+        name: string;
+        followers: UserEntity[];
+        questions: import("../entities/question.entity").QuestionEntity[];
+        questionsNumber: number;
+        creator: UserEntity;
+        questionTemplates: import("../entities/question-template.entity").QuestionTemplateEntity[];
+        description: string;
+    } & HashTagEntity>;
+    removeFollower(dto: {
+        userId: number;
+        hashTagId: number;
+    }): Promise<{
+        followersNumber: number;
+        id: number;
+        createdAt: Date;
+        updatedAt: Date;
+        name: string;
+        followers: UserEntity[];
+        questions: import("../entities/question.entity").QuestionEntity[];
+        questionsNumber: number;
+        creator: UserEntity;
+        questionTemplates: import("../entities/question-template.entity").QuestionTemplateEntity[];
+        description: string;
+    } & HashTagEntity>;
 }

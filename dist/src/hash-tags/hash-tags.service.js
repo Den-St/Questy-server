@@ -99,6 +99,18 @@ let HashTagsService = class HashTagsService {
         const skip = ((dto.page || 1) - 1) * (dto.pageSize || 10);
         const take = (dto.pageSize || 10);
     }
+    async getWithFollowers(id) {
+        return await this.hashtagRepository.findOne({ where: { id }, relations: ['followers'] });
+    }
+    async addFollower(dto) {
+        const hashTag = await this.hashtagRepository.findOne({ where: { id: dto.hashTagId } });
+        return await this.hashtagRepository.save(Object.assign(Object.assign({}, hashTag), { followersNumber: hashTag.followersNumber + 1 }));
+    }
+    async removeFollower(dto) {
+        const hashTag = await this.hashtagRepository.findOne({ where: { id: dto.hashTagId } });
+        return await this.hashtagRepository
+            .save(Object.assign(Object.assign({}, hashTag), { followersNumber: hashTag.followersNumber - 1 }));
+    }
 };
 HashTagsService = __decorate([
     (0, common_1.Injectable)(),

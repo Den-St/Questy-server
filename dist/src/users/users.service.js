@@ -180,6 +180,21 @@ let UsersService = class UsersService {
     async getCorrectAnswers(id) {
         return await this.userRepository.findOne({ where: { id }, relations: ['correctAnswersOnSubscribedQuestions', 'correctAnswersOnSubscribedQuestions.question'] });
     }
+    async getFavoriteHashTags(id) {
+        return await this.userRepository.findOne({ where: { id }, relations: ['favoriteHashTags'] });
+    }
+    async removeFavoriteHashTag(dto) {
+        const user = await this.userRepository.findOne({ where: { id: dto.userId }, relations: ['favoriteHashTags'] });
+        const hashTag = await this.hashTagsService.removeFollower({ userId: dto.userId, hashTagId: dto.hashTagId });
+        return await this.userRepository
+            .save(Object.assign(Object.assign({}, user), { favoriteHashTags: [...user.favoriteHashTags.filter(hashTag => hashTag.id !== dto.hashTagId)] }));
+    }
+    async addToFavoriteHashTag(dto) {
+        const user = await this.userRepository.findOne({ where: { id: dto.userId }, relations: ['favoriteHashTags'] });
+        const hashTag = await this.hashTagsService.addFollower({ user, hashTagId: dto.hashTagId });
+        return await this.userRepository
+            .save(Object.assign(Object.assign({}, user), { favoriteHashTags: [...user.favoriteHashTags, hashTag] }));
+    }
 };
 UsersService = __decorate([
     (0, common_1.Injectable)(),
