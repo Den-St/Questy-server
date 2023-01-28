@@ -136,9 +136,7 @@ let UsersService = class UsersService {
     }
     async edit(dto) {
         var _a;
-        const user = await this.userRepository.findOne({ where: { id: dto.userId } });
-        console.log(dto);
-        console.log(dto.favoriteHashTags);
+        const user = await this.userRepository.findOne({ where: { id: dto.userId }, relations: ['avatar', 'favoriteHashTags'] });
         const hashTags = [];
         if (!!dto.favoriteHashTags) {
             for (let i = 0; i < ((_a = dto.favoriteHashTags) === null || _a === void 0 ? void 0 : _a.length); i++) {
@@ -147,10 +145,12 @@ let UsersService = class UsersService {
                 hashTags.push(hashTag);
             }
         }
-        let newAvatar;
-        if (dto.avatarPath) {
+        let newAvatar = user.avatar;
+        if (dto.avatarPath.length) {
             newAvatar = await this.imagesService.create(dto.avatarPath, user.id);
         }
+        console.log('gg', !!dto.favoriteHashTags ? hashTags : user.favoriteHashTags);
+        console.log('gf', newAvatar);
         const newUser = await this.userRepository.save(Object.assign(Object.assign({}, user), { name: dto.name, favoriteHashTags: (!!dto.favoriteHashTags ? hashTags : user.favoriteHashTags), gender: dto.gender, avatar: newAvatar, occasion: dto.occasion, birthdate: dto.birthdate, location: dto.location, about: dto.about }));
         const { passwordHash } = newUser, clientUser = __rest(newUser, ["passwordHash"]);
         return {

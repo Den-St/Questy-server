@@ -199,7 +199,7 @@ export declare class UsersService {
             name: string;
             favoriteHashTags: HashTagEntity[];
             gender: string;
-            avatar: any;
+            avatar: import("../entities/avatar.entity").AvatarEntity;
             occasion: string;
             birthdate: string;
             location: string;

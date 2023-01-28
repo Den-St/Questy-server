@@ -82,7 +82,7 @@ export declare class UsersController {
             name: string;
             favoriteHashTags: import("../entities/hash-tag.entity").HashTagEntity[];
             gender: string;
-            avatar: any;
+            avatar: import("../entities/avatar.entity").AvatarEntity;
             occasion: string;
             birthdate: string;
             location: string;

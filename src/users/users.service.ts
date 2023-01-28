@@ -143,10 +143,9 @@ export class UsersService {
     }
 
     async edit(dto:SetUserDetailedInfoDto) {
-        const user = await this.userRepository.findOne({where:{id:dto.userId}});
-        console.log(dto);
-        console.log(dto.favoriteHashTags);
+        const user = await this.userRepository.findOne({where:{id:dto.userId},relations:['avatar','favoriteHashTags']});
         const hashTags:HashTagEntity[] = [];
+        
         if(!!dto.favoriteHashTags){
             for(let i = 0;i < dto.favoriteHashTags?.length;i++) {
                 let hashTag = await this.hashTagsService.getByName(dto.favoriteHashTags[i]);
@@ -155,11 +154,12 @@ export class UsersService {
             }
         }
         
-        let newAvatar;
-        if(dto.avatarPath) {
+        let newAvatar = user.avatar;
+        if(dto.avatarPath.length) {
             newAvatar = await this.imagesService.create(dto.avatarPath,user.id);
         }
-
+        console.log('gg',!!dto.favoriteHashTags ? hashTags : user.favoriteHashTags)
+        console.log('gf',newAvatar)
         const newUser = await this.userRepository.save({...user,name:dto.name,favoriteHashTags:(!!dto.favoriteHashTags ? hashTags : user.favoriteHashTags),
             gender:dto.gender,avatar:newAvatar,occasion:dto.occasion,birthdate:dto.birthdate,location:dto.location,about:dto.about});
         const {passwordHash,...clientUser} = newUser;
