@@ -23,6 +23,7 @@ export declare class HashTagsService {
         creator: UserEntity;
         questionTemplates: import("../entities/question-template.entity").QuestionTemplateEntity[];
         description: string;
+        communities: import("../entities/community.entity").CommunityEntity[];
     } & HashTagEntity>;
     create(dto: CreateHashTagDto): Promise<HashTagEntity>;
     getByName(name: string): Promise<HashTagEntity>;
@@ -39,6 +40,7 @@ export declare class HashTagsService {
         creator: UserEntity;
         questionTemplates: import("../entities/question-template.entity").QuestionTemplateEntity[];
         description: string;
+        communities: import("../entities/community.entity").CommunityEntity[];
     } & HashTagEntity>;
     searchByName(name: string): Promise<HashTagEntity[]>;
     getByNameAndIncreaseQuestionNumber(name: string): Promise<HashTagEntity>;
@@ -67,6 +69,7 @@ export declare class HashTagsService {
         creator: UserEntity;
         questionTemplates: import("../entities/question-template.entity").QuestionTemplateEntity[];
         description: string;
+        communities: import("../entities/community.entity").CommunityEntity[];
     } & HashTagEntity>;
     removeFollower(dto: {
         userId: number;
@@ -83,5 +86,7 @@ export declare class HashTagsService {
         creator: UserEntity;
         questionTemplates: import("../entities/question-template.entity").QuestionTemplateEntity[];
         description: string;
+        communities: import("../entities/community.entity").CommunityEntity[];
     } & HashTagEntity>;
+    getByIdWithCommunities(id: number): Promise<HashTagEntity>;
 }

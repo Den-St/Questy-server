@@ -1,3 +1,4 @@
+import { CommunityEntity } from './community.entity';
 import { AvatarEntity } from './avatar.entity';
 import { HashTagEntity } from './hash-tag.entity';
 import { AnswerEntity } from './answer.entity';
@@ -5,6 +6,7 @@ import { QuestionEntity } from './question.entity';
 import { RoleEntity } from './role.entity';
 import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { QuestionTemplateEntity } from './question-template.entity';
+import { MessageEntity } from './message.entity';
 
 @Entity()
 export class UserEntity {
@@ -107,5 +109,15 @@ export class UserEntity {
    @ManyToMany(() => AnswerEntity,answer => answer.subscribers)
    @JoinTable()
    correctAnswersOnSubscribedQuestions:AnswerEntity[];
+
+   @OneToMany(() => CommunityEntity,community => community.creator)
+   @JoinTable()
+   createdCommunities:CommunityEntity[];
+
+    @ManyToMany(() => CommunityEntity,community => community.members)
+    communities:CommunityEntity[];
+
+    @OneToMany(() => MessageEntity,message => message.creator)
+    messages:MessageEntity[];
 }
 

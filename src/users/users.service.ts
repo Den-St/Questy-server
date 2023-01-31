@@ -221,4 +221,10 @@ export class UsersService {
     return await this.userRepository
         .save({...user,favoriteHashTags:[...user.favoriteHashTags,hashTag]});
    }
+
+   async getWithCreatedCommunitiesAndCommunities(id:number) {
+    return await this.userRepository.findOne({where:{id}});
+   }
+
+  
 }

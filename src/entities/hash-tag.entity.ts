@@ -1,3 +1,4 @@
+import { CommunityEntity } from './community.entity';
 import { UserEntity } from 'src/entities/user.entity';
 import { QuestionEntity } from './question.entity';
 import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
@@ -37,4 +38,7 @@ export class HashTagEntity {
 
     @Column({nullable:true,default:''})
     description:string;
+
+    @ManyToMany(() => CommunityEntity,communities => communities.hashTags)
+    communities:CommunityEntity[];
 }

@@ -12,6 +12,11 @@ import { QuestionsModule } from './questions/questions.module';
 import { QuestionTemplatesController } from './question-templates/question-templates.controller';
 import { QuestionTemplatesModule } from './question-templates/question-templates.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { CommunityController } from './community/community.controller';
+import { CommunityModule } from './community/community.module';
+import { MessageService } from './message/message.service';
+import { MessageController } from './message/message.controller';
+import { MessageModule } from './message/message.module';
 import * as path from 'path';
 
 @Module({
@@ -26,11 +31,14 @@ import * as path from 'path';
     AuthModule,
     AvatarsModule,
     QuestionTemplatesModule,
+    CommunityModule,
+    MessageModule,
     // ServeStaticModule.forRoot({
     //   rootPath: path.resolve('uploads/profileimages'),
     // }),
   ],
-  controllers: [QuestionTemplatesController],
+  controllers: [QuestionTemplatesController, CommunityController, MessageController],
+  providers: [MessageService],
 })
 export class AppModule {}
 console.log(path.resolve('uploads/profileimages'))

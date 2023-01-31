@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QuestionEntity = void 0;
+const message_entity_1 = require("./message.entity");
 const answer_entity_1 = require("./answer.entity");
 const user_entity_1 = require("./user.entity");
 const hash_tag_entity_1 = require("./hash-tag.entity");
@@ -84,6 +85,10 @@ __decorate([
     (0, typeorm_1.ManyToMany)(() => user_entity_1.UserEntity, user => user.subscribedQuestions),
     __metadata("design:type", Array)
 ], QuestionEntity.prototype, "subscribers", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => message_entity_1.MessageEntity, message => message.pinnedQuestion),
+    __metadata("design:type", Array)
+], QuestionEntity.prototype, "messages", void 0);
 QuestionEntity = __decorate([
     (0, typeorm_1.Entity)()
 ], QuestionEntity);

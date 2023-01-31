@@ -36,6 +36,9 @@ export declare class UsersController {
         subscribedQuestions: import("../entities/question.entity").QuestionEntity[];
         notSeenAnswers: import("../entities/answer.entity").AnswerEntity[];
         correctAnswersOnSubscribedQuestions: import("../entities/answer.entity").AnswerEntity[];
+        createdCommunities: import("../entities/community.entity").CommunityEntity[];
+        communities: import("../entities/community.entity").CommunityEntity[];
+        messages: import("../entities/message.entity").MessageEntity[];
     } & import("../entities/user.entity").UserEntity>;
     setDetailedInfo(dto: SetUserDetailedInfoDto): Promise<{
         user: {
@@ -69,6 +72,9 @@ export declare class UsersController {
             subscribedQuestions: import("../entities/question.entity").QuestionEntity[];
             notSeenAnswers: import("../entities/answer.entity").AnswerEntity[];
             correctAnswersOnSubscribedQuestions: import("../entities/answer.entity").AnswerEntity[];
+            createdCommunities: import("../entities/community.entity").CommunityEntity[];
+            communities: import("../entities/community.entity").CommunityEntity[];
+            messages: import("../entities/message.entity").MessageEntity[];
         } & import("../entities/user.entity").UserEntity;
         token: string;
     }>;
@@ -108,6 +114,9 @@ export declare class UsersController {
             subscribedQuestions: import("../entities/question.entity").QuestionEntity[];
             notSeenAnswers: import("../entities/answer.entity").AnswerEntity[];
             correctAnswersOnSubscribedQuestions: import("../entities/answer.entity").AnswerEntity[];
+            createdCommunities: import("../entities/community.entity").CommunityEntity[];
+            communities: import("../entities/community.entity").CommunityEntity[];
+            messages: import("../entities/message.entity").MessageEntity[];
         };
         token: string;
     }>;
@@ -142,6 +151,9 @@ export declare class UsersController {
         subscribedQuestions: import("../entities/question.entity").QuestionEntity[];
         notSeenAnswers: import("../entities/answer.entity").AnswerEntity[];
         correctAnswersOnSubscribedQuestions: import("../entities/answer.entity").AnswerEntity[];
+        createdCommunities: import("../entities/community.entity").CommunityEntity[];
+        communities: import("../entities/community.entity").CommunityEntity[];
+        messages: import("../entities/message.entity").MessageEntity[];
     } & import("../entities/user.entity").UserEntity>;
     getNotSeenAnswers(id: number): Promise<import("../entities/user.entity").UserEntity>;
     getCorrectAnswers(id: number): Promise<import("../entities/user.entity").UserEntity>;
@@ -180,6 +192,9 @@ export declare class UsersController {
         subscribedQuestions: import("../entities/question.entity").QuestionEntity[];
         notSeenAnswers: import("../entities/answer.entity").AnswerEntity[];
         correctAnswersOnSubscribedQuestions: import("../entities/answer.entity").AnswerEntity[];
+        createdCommunities: import("../entities/community.entity").CommunityEntity[];
+        communities: import("../entities/community.entity").CommunityEntity[];
+        messages: import("../entities/message.entity").MessageEntity[];
     } & import("../entities/user.entity").UserEntity>;
     addToFavoriteHashTag(dto: {
         userId: number;
@@ -215,5 +230,8 @@ export declare class UsersController {
         subscribedQuestions: import("../entities/question.entity").QuestionEntity[];
         notSeenAnswers: import("../entities/answer.entity").AnswerEntity[];
         correctAnswersOnSubscribedQuestions: import("../entities/answer.entity").AnswerEntity[];
+        createdCommunities: import("../entities/community.entity").CommunityEntity[];
+        communities: import("../entities/community.entity").CommunityEntity[];
+        messages: import("../entities/message.entity").MessageEntity[];
     } & import("../entities/user.entity").UserEntity>;
 }

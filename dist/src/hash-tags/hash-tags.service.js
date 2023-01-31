@@ -111,6 +111,9 @@ let HashTagsService = class HashTagsService {
         return await this.hashtagRepository
             .save(Object.assign(Object.assign({}, hashTag), { followersNumber: hashTag.followersNumber - 1 }));
     }
+    async getByIdWithCommunities(id) {
+        return await this.hashtagRepository.findOne({ where: { id } });
+    }
 };
 HashTagsService = __decorate([
     (0, common_1.Injectable)(),

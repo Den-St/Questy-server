@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HashTagEntity = void 0;
+const community_entity_1 = require("./community.entity");
 const user_entity_1 = require("./user.entity");
 const question_entity_1 = require("./question.entity");
 const typeorm_1 = require("typeorm");
@@ -60,6 +61,10 @@ __decorate([
     (0, typeorm_1.Column)({ nullable: true, default: '' }),
     __metadata("design:type", String)
 ], HashTagEntity.prototype, "description", void 0);
+__decorate([
+    (0, typeorm_1.ManyToMany)(() => community_entity_1.CommunityEntity, communities => communities.hashTags),
+    __metadata("design:type", Array)
+], HashTagEntity.prototype, "communities", void 0);
 HashTagEntity = __decorate([
     (0, typeorm_1.Entity)()
 ], HashTagEntity);

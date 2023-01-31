@@ -1,3 +1,4 @@
+import { CommunityEntity } from './community.entity';
 import { UserEntity } from 'src/entities/user.entity';
 import { QuestionEntity } from './question.entity';
 import { QuestionTemplateEntity } from './question-template.entity';
@@ -13,4 +14,5 @@ export declare class HashTagEntity {
     creator: UserEntity;
     questionTemplates: QuestionTemplateEntity[];
     description: string;
+    communities: CommunityEntity[];
 }

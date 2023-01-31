@@ -195,6 +195,9 @@ let UsersService = class UsersService {
         return await this.userRepository
             .save(Object.assign(Object.assign({}, user), { favoriteHashTags: [...user.favoriteHashTags, hashTag] }));
     }
+    async getWithCreatedCommunitiesAndCommunities(id) {
+        return await this.userRepository.findOne({ where: { id } });
+    }
 };
 UsersService = __decorate([
     (0, common_1.Injectable)(),

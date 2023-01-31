@@ -27,6 +27,7 @@ export declare class QuestionsController {
         ratedDownUsers: import("../entities/user.entity").UserEntity[];
         viewers: import("../entities/user.entity").UserEntity[];
         subscribers: import("../entities/user.entity").UserEntity[];
+        messages: import("../entities/message.entity").MessageEntity[];
     } & import("../entities/question.entity").QuestionEntity>;
     getByUserIdPaginated(dto: GetByUserIdPaginatedDto): Promise<{
         questions: import("../entities/question.entity").QuestionEntity[];
@@ -54,6 +55,7 @@ export declare class QuestionsController {
         ratedDownUsers: import("../entities/user.entity").UserEntity[];
         viewers: import("../entities/user.entity").UserEntity[];
         subscribers: import("../entities/user.entity").UserEntity[];
+        messages: import("../entities/message.entity").MessageEntity[];
     } & import("../entities/question.entity").QuestionEntity>;
     rateDown(dto: RateQuestionDto): Promise<{
         rating: number;
@@ -72,6 +74,7 @@ export declare class QuestionsController {
         ratedUpUsers: import("../entities/user.entity").UserEntity[];
         viewers: import("../entities/user.entity").UserEntity[];
         subscribers: import("../entities/user.entity").UserEntity[];
+        messages: import("../entities/message.entity").MessageEntity[];
     } & import("../entities/question.entity").QuestionEntity>;
     cancelRating(dto: RateQuestionDto): Promise<{
         rating: number;
@@ -90,6 +93,7 @@ export declare class QuestionsController {
         ratedDownUsers: import("../entities/user.entity").UserEntity[];
         viewers: import("../entities/user.entity").UserEntity[];
         subscribers: import("../entities/user.entity").UserEntity[];
+        messages: import("../entities/message.entity").MessageEntity[];
     } & import("../entities/question.entity").QuestionEntity>;
     view(dto: ViewDto): Promise<{
         viewers: import("../entities/user.entity").UserEntity[];
@@ -108,6 +112,7 @@ export declare class QuestionsController {
         ratedUpUsers: import("../entities/user.entity").UserEntity[];
         ratedDownUsers: import("../entities/user.entity").UserEntity[];
         subscribers: import("../entities/user.entity").UserEntity[];
+        messages: import("../entities/message.entity").MessageEntity[];
     } & import("../entities/question.entity").QuestionEntity>;
     subscribe(dto: SubscribeDto): Promise<{
         subscribers: import("../entities/user.entity").UserEntity[];
@@ -126,6 +131,7 @@ export declare class QuestionsController {
         ratedUpUsers: import("../entities/user.entity").UserEntity[];
         ratedDownUsers: import("../entities/user.entity").UserEntity[];
         viewers: import("../entities/user.entity").UserEntity[];
+        messages: import("../entities/message.entity").MessageEntity[];
     } & import("../entities/question.entity").QuestionEntity>;
     unsubscribe(dto: SubscribeDto): Promise<Partial<import("../entities/user.entity").UserEntity> & import("../entities/user.entity").UserEntity>;
     seeAnswers(dto: SeeAnswersDto): Promise<Partial<import("../entities/user.entity").UserEntity> & import("../entities/user.entity").UserEntity>;

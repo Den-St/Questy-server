@@ -41,6 +41,9 @@ export declare class AuthService {
         subscribedQuestions: import("../entities/question.entity").QuestionEntity[];
         notSeenAnswers: import("../entities/answer.entity").AnswerEntity[];
         correctAnswersOnSubscribedQuestions: import("../entities/answer.entity").AnswerEntity[];
+        createdCommunities: import("../entities/community.entity").CommunityEntity[];
+        communities: import("../entities/community.entity").CommunityEntity[];
+        messages: import("../entities/message.entity").MessageEntity[];
     };
     generateToken(userData: UserEntity): string;
 }

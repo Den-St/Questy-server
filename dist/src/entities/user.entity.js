@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserEntity = void 0;
+const community_entity_1 = require("./community.entity");
 const avatar_entity_1 = require("./avatar.entity");
 const hash_tag_entity_1 = require("./hash-tag.entity");
 const answer_entity_1 = require("./answer.entity");
@@ -17,6 +18,7 @@ const question_entity_1 = require("./question.entity");
 const role_entity_1 = require("./role.entity");
 const typeorm_1 = require("typeorm");
 const question_template_entity_1 = require("./question-template.entity");
+const message_entity_1 = require("./message.entity");
 let UserEntity = class UserEntity {
 };
 __decorate([
@@ -149,6 +151,19 @@ __decorate([
     (0, typeorm_1.JoinTable)(),
     __metadata("design:type", Array)
 ], UserEntity.prototype, "correctAnswersOnSubscribedQuestions", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => community_entity_1.CommunityEntity, community => community.creator),
+    (0, typeorm_1.JoinTable)(),
+    __metadata("design:type", Array)
+], UserEntity.prototype, "createdCommunities", void 0);
+__decorate([
+    (0, typeorm_1.ManyToMany)(() => community_entity_1.CommunityEntity, community => community.members),
+    __metadata("design:type", Array)
+], UserEntity.prototype, "communities", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => message_entity_1.MessageEntity, message => message.creator),
+    __metadata("design:type", Array)
+], UserEntity.prototype, "messages", void 0);
 UserEntity = __decorate([
     (0, typeorm_1.Entity)()
 ], UserEntity);

@@ -42,6 +42,9 @@ export declare class AnswersService {
             ratedDownAnswers: AnswerEntity[];
             subscribedQuestions: import("../entities/question.entity").QuestionEntity[];
             correctAnswersOnSubscribedQuestions: AnswerEntity[];
+            createdCommunities: import("../entities/community.entity").CommunityEntity[];
+            communities: import("../entities/community.entity").CommunityEntity[];
+            messages: import("../entities/message.entity").MessageEntity[];
         } & import("../entities/user.entity").UserEntity;
         question: {
             answers: AnswerEntity[];
@@ -60,6 +63,7 @@ export declare class AnswersService {
             ratedDownUsers: import("../entities/user.entity").UserEntity[];
             viewers: import("../entities/user.entity").UserEntity[];
             subscribers: import("../entities/user.entity").UserEntity[];
+            messages: import("../entities/message.entity").MessageEntity[];
         } & import("../entities/question.entity").QuestionEntity;
         id: number;
         createdAt: Date;

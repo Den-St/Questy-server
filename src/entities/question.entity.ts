@@ -1,3 +1,4 @@
+import { MessageEntity } from './message.entity';
 import { AnswerEntity } from './answer.entity';
 import { UserEntity } from 'src/entities/user.entity';
 import { HashTagEntity } from './hash-tag.entity';
@@ -56,4 +57,7 @@ export class QuestionEntity {
 
     @ManyToMany(() => UserEntity,user => user.subscribedQuestions)
     subscribers:UserEntity[];
+
+    @OneToMany(() => MessageEntity,message => message.pinnedQuestion)
+    messages:MessageEntity[];
 }

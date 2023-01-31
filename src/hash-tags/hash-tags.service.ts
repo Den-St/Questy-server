@@ -138,4 +138,8 @@ export class HashTagsService {
         // return await this.hashtagRepository
         //     .save({...hashTag,followers:[...hashTag.followers.filter(user => user.id !== dto.userId)],followersNumber:hashTag.followersNumber - 1});
     }
+
+    async getByIdWithCommunities(id:number){
+        return await this.hashtagRepository.findOne({where:{id}})
+    }
 }

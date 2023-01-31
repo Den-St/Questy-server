@@ -1,9 +1,11 @@
+import { CommunityEntity } from './community.entity';
 import { AvatarEntity } from './avatar.entity';
 import { HashTagEntity } from './hash-tag.entity';
 import { AnswerEntity } from './answer.entity';
 import { QuestionEntity } from './question.entity';
 import { RoleEntity } from './role.entity';
 import { QuestionTemplateEntity } from './question-template.entity';
+import { MessageEntity } from './message.entity';
 export declare class UserEntity {
     id: number;
     createdAt: Date;
@@ -35,4 +37,7 @@ export declare class UserEntity {
     subscribedQuestions: QuestionEntity[];
     notSeenAnswers: AnswerEntity[];
     correctAnswersOnSubscribedQuestions: AnswerEntity[];
+    createdCommunities: CommunityEntity[];
+    communities: CommunityEntity[];
+    messages: MessageEntity[];
 }

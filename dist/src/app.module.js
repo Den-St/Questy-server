@@ -20,6 +20,11 @@ const avatars_module_1 = require("./avatars/avatars.module");
 const questions_module_1 = require("./questions/questions.module");
 const question_templates_controller_1 = require("./question-templates/question-templates.controller");
 const question_templates_module_1 = require("./question-templates/question-templates.module");
+const community_controller_1 = require("./community/community.controller");
+const community_module_1 = require("./community/community.module");
+const message_service_1 = require("./message/message.service");
+const message_controller_1 = require("./message/message.controller");
+const message_module_1 = require("./message/message.module");
 const path = require("path");
 let AppModule = class AppModule {
 };
@@ -36,8 +41,11 @@ AppModule = __decorate([
             auth_module_1.AuthModule,
             avatars_module_1.AvatarsModule,
             question_templates_module_1.QuestionTemplatesModule,
+            community_module_1.CommunityModule,
+            message_module_1.MessageModule,
         ],
-        controllers: [question_templates_controller_1.QuestionTemplatesController],
+        controllers: [question_templates_controller_1.QuestionTemplatesController, community_controller_1.CommunityController, message_controller_1.MessageController],
+        providers: [message_service_1.MessageService],
     })
 ], AppModule);
 exports.AppModule = AppModule;

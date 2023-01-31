@@ -63,4 +63,6 @@ export class UsersController {
     async addToFavoriteHashTag(@Body() dto:{userId:number,hashTagId:number}) {
         return await this.usersService.addToFavoriteHashTag(dto);
     }
+
+   
 }
