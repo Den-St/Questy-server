@@ -21,6 +21,7 @@ export class CommunityEntity {
     members:UserEntity[];
 
     @ManyToMany(() => HashTagEntity)
+    @JoinTable()
     hashTags:HashTagEntity[];
 
     @Column()

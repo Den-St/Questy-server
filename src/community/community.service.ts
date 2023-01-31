@@ -39,19 +39,21 @@ export class CommunityService {
     async getMessages(id:number) {
         return await this.communityRepository.findOne({where:{id},relations:['messages']});
     }
-    async getWithFilters(dto:GetWithFiltersDto) {
+
+    async getPaginated(dto:GetWithFiltersDto) {
         const skip = ((dto.page || 1) - 1) * (dto.pageSize || 10);
         const take = (dto.pageSize || 10);
         const hashTags = dto?.hashTags?.split(";").filter(hashTag => hashTag.length);
-        
+        console.log(dto)
         const [communities,total] = await this.communityRepository.findAndCount({
-            where:{hashTags:(hashTags?.length ? {name:In(hashTags)} : null),name:Like(`%${dto?.name || ''}%`)}
+            where:{hashTags:(hashTags?.length ? {name:In(hashTags)} : null),name:Like(`%${dto?.search || ''}%`)}
             ,skip
             ,take
             ,order:{[dto?.orderRule?.fieldName || 'createdAt']:dto.orderRule.orderValue || 'DESC'}
             ,relations:['hashTags']
         });
-
+        
+        console.log(communities);
         return {
             communities,
             total

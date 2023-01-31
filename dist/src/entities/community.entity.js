@@ -38,6 +38,7 @@ __decorate([
 ], CommunityEntity.prototype, "members", void 0);
 __decorate([
     (0, typeorm_1.ManyToMany)(() => hash_tag_entity_1.HashTagEntity),
+    (0, typeorm_1.JoinTable)(),
     __metadata("design:type", Array)
 ], CommunityEntity.prototype, "hashTags", void 0);
 __decorate([

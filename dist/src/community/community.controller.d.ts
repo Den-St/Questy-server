@@ -6,7 +6,7 @@ export declare class CommunityController {
     private readonly communityService;
     constructor(communityService: CommunityService);
     create(dto: CreateCommunityDto): Promise<import("../entities/community.entity").CommunityEntity>;
-    getWithFilters(dto: GetWithFiltersDto): Promise<{
+    getPaginated(dto: GetWithFiltersDto): Promise<{
         communities: import("../entities/community.entity").CommunityEntity[];
         total: number;
     }>;

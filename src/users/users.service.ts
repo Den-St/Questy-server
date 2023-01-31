@@ -210,20 +210,35 @@ export class UsersService {
     const user = await this.userRepository.findOne({where:{id:dto.userId},relations:['favoriteHashTags']});
     const hashTag = await this.hashTagsService.removeFollower({userId:dto.userId,hashTagId:dto.hashTagId});
 
-    return await this.userRepository
+    const newUser = await this.userRepository
         .save({...user,favoriteHashTags:[...user.favoriteHashTags.filter(hashTag => hashTag.id !== dto.hashTagId)]});
+
+    const {passwordHash,...clientUser} = newUser;
+    return {
+        user:clientUser,
+        token:this.generateToken(newUser)
+    }
    }
 
    async addToFavoriteHashTag(dto:{userId:number,hashTagId:number}) {
     const user = await this.userRepository.findOne({where:{id:dto.userId},relations:['favoriteHashTags']});
     const hashTag = await this.hashTagsService.addFollower({user,hashTagId:dto.hashTagId});
 
-    return await this.userRepository
+    const newUser = await this.userRepository
         .save({...user,favoriteHashTags:[...user.favoriteHashTags,hashTag]});
+
+    const {passwordHash,...clientUser} = newUser;
+    return {
+        user:clientUser,
+        token:this.generateToken(newUser)
+    }
    }
 
    async getWithCreatedCommunitiesAndCommunities(id:number) {
     return await this.userRepository.findOne({where:{id}});
+
+
+    
    }
 
   

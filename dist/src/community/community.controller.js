@@ -25,8 +25,8 @@ let CommunityController = class CommunityController {
     async create(dto) {
         return await this.communityService.create(dto);
     }
-    async getWithFilters(dto) {
-        return await this.communityService.getWithFilters(dto);
+    async getPaginated(dto) {
+        return await this.communityService.getPaginated(dto);
     }
     async get(id) {
         return await this.communityService.get(id);
@@ -55,12 +55,12 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], CommunityController.prototype, "create", null);
 __decorate([
-    (0, common_1.Post)('getWithFilters'),
+    (0, common_1.Post)('getPaginated'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [getWithFilters_dto_1.GetWithFiltersDto]),
     __metadata("design:returntype", Promise)
-], CommunityController.prototype, "getWithFilters", null);
+], CommunityController.prototype, "getPaginated", null);
 __decorate([
     (0, common_1.Get)('getOne/:id'),
     __param(0, (0, common_1.Param)('id')),

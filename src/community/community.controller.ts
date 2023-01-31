@@ -13,9 +13,9 @@ export class CommunityController {
         return await this.communityService.create(dto);
     }
 
-    @Post('getWithFilters')
-    async getWithFilters(@Body() dto:GetWithFiltersDto) {
-        return await this.communityService.getWithFilters(dto);
+    @Post('getPaginated')
+    async getPaginated(@Body() dto:GetWithFiltersDto) {
+        return await this.communityService.getPaginated(dto);
     }
 
     @Get('getOne/:id')

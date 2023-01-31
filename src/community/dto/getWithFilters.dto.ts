@@ -1,6 +1,6 @@
 import { OrderRuleT } from 'src/answers/dto/getByUserIdPaginated.dto';
 export class GetWithFiltersDto {
-    name:string;
+    search:string;
     orderRule:OrderRuleT;
     page:number;
     pageSize:number;

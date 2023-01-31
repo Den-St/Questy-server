@@ -44,18 +44,20 @@ let CommunityService = class CommunityService {
     async getMessages(id) {
         return await this.communityRepository.findOne({ where: { id }, relations: ['messages'] });
     }
-    async getWithFilters(dto) {
+    async getPaginated(dto) {
         var _a, _b;
         const skip = ((dto.page || 1) - 1) * (dto.pageSize || 10);
         const take = (dto.pageSize || 10);
         const hashTags = (_a = dto === null || dto === void 0 ? void 0 : dto.hashTags) === null || _a === void 0 ? void 0 : _a.split(";").filter(hashTag => hashTag.length);
+        console.log(dto);
         const [communities, total] = await this.communityRepository.findAndCount({
-            where: { hashTags: ((hashTags === null || hashTags === void 0 ? void 0 : hashTags.length) ? { name: (0, typeorm_1.In)(hashTags) } : null), name: (0, typeorm_1.Like)(`%${(dto === null || dto === void 0 ? void 0 : dto.name) || ''}%`) },
+            where: { hashTags: ((hashTags === null || hashTags === void 0 ? void 0 : hashTags.length) ? { name: (0, typeorm_1.In)(hashTags) } : null), name: (0, typeorm_1.Like)(`%${(dto === null || dto === void 0 ? void 0 : dto.search) || ''}%`) },
             skip,
             take,
             order: { [((_b = dto === null || dto === void 0 ? void 0 : dto.orderRule) === null || _b === void 0 ? void 0 : _b.fieldName) || 'createdAt']: dto.orderRule.orderValue || 'DESC' },
             relations: ['hashTags']
         });
+        console.log(communities);
         return {
             communities,
             total

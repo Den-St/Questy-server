@@ -15,7 +15,7 @@ export declare class CommunityService {
     get(id: number): Promise<CommunityEntity>;
     getMembers(id: number): Promise<CommunityEntity>;
     getMessages(id: number): Promise<CommunityEntity>;
-    getWithFilters(dto: GetWithFiltersDto): Promise<{
+    getPaginated(dto: GetWithFiltersDto): Promise<{
         communities: CommunityEntity[];
         total: number;
     }>;
