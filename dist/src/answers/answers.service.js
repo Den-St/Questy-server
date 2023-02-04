@@ -38,14 +38,13 @@ let AnswersService = class AnswersService {
         return answers;
     }
     async getByUserIdPaginated(dto) {
-        var _a;
-        const skip = ((dto.page || 1) - 1) * (dto.pageSize || 10);
-        const take = (dto.pageSize || 10);
+        const skip = ((+dto.page || 1) - 1) * (+dto.pageSize || 10);
+        const take = (+dto.pageSize || 10);
         const [answers, total] = await this.answersRepository
             .findAndCount({
             where: { 'creator': { 'id': dto.userId } },
             take, skip, relations: ['question', 'question.hashTags'],
-            order: { [((_a = dto === null || dto === void 0 ? void 0 : dto.orderRule) === null || _a === void 0 ? void 0 : _a.fieldName) || 'createdAt']: dto.orderRule.orderValue || 'DESC' }
+            order: { [(dto === null || dto === void 0 ? void 0 : dto.fieldName) || 'createdAt']: (dto === null || dto === void 0 ? void 0 : dto.orderValue) || 'DESC' }
         });
         return {
             total,

@@ -42,18 +42,13 @@ let AuthService = class AuthService {
         return passwordEquals ? user : null;
     }
     async register(dto) {
-        try {
-            const candidate = await this.userService.getByEmail(dto.email);
-            if (candidate)
-                throw new common_1.HttpException("email already in use", common_1.HttpStatus.BAD_REQUEST);
-            const hashPassword = await bcrypt.hash(dto.password, 10);
-            const user = await this.userService.create({ email: dto.email, passwordHash: hashPassword });
-            const { passwordHash } = user, userClientData = __rest(user, ["passwordHash"]);
-            return Object.assign({ token: this.generateToken(user) }, userClientData);
-        }
-        catch (err) {
-            throw new common_1.HttpException(err, common_1.HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        const candidate = await this.userService.getByEmail(dto.email);
+        if (candidate)
+            throw new common_1.HttpException("email already in use", common_1.HttpStatus.BAD_REQUEST);
+        const hashPassword = await bcrypt.hash(dto.password, 10);
+        const user = await this.userService.create({ email: dto.email, passwordHash: hashPassword });
+        const { passwordHash } = user, userClientData = __rest(user, ["passwordHash"]);
+        return Object.assign({ token: this.generateToken(user) }, userClientData);
     }
     async login(dto) {
         const user = await this.validate(dto.email, dto.password);

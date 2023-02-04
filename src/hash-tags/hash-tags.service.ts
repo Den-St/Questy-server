@@ -39,7 +39,6 @@ export class HashTagsService {
 
     async getByNameWithInUsed(name:string) {
         const hashTag = await this.hashtagRepository.findOne({where:{name},relations:['usedBy']});
-        console.log('f',hashTag)
         return hashTag; 
     }
 
@@ -69,8 +68,8 @@ export class HashTagsService {
 
 
     async getCreatedHashTagsPaginated(dto:GetByUserIdPaginatedDto) {
-        const skip = ((dto.page || 1) - 1) * (dto.pageSize || 10);
-        const take = (dto.pageSize || 10);
+        const skip = ((+dto.page || 1) - 1) * (+dto.pageSize || 10);
+        const take = (+dto.pageSize || 10);
 
         const [hashTags,total] = await this.hashtagRepository
             .findAndCount({
@@ -78,7 +77,7 @@ export class HashTagsService {
                 relations:['creator'],
                 skip,
                 take
-                ,order:{[dto?.orderRule?.fieldName || 'createdAt']:dto.orderRule.orderValue || 'DESC'}
+                ,order:{[dto?.fieldName || 'createdAt']:dto?.orderValue || 'DESC'}
             });
 
         return {
@@ -94,7 +93,7 @@ export class HashTagsService {
         const [hashTags,total] = await this.hashtagRepository
         .findAndCount({
             take,skip
-            ,order:{[dto?.orderRule?.fieldName || 'questionsNumber']:(dto?.orderRule?.orderValue || 'ASC')}
+            ,order:{[dto?.fieldName || 'questionsNumber']:(dto?.orderValue || 'ASC')}
             ,where:{name:Like(`%${dto.search || ""}%`)}
         });
 
@@ -104,19 +103,7 @@ export class HashTagsService {
         }
     }
 
-    async getPaginatedQuestions(dto:GetPaginatedQuestions) {
-        const skip = ((dto.page || 1) - 1) * (dto.pageSize || 10);
-        const take = (dto.pageSize || 10);
-
-        // const [hashTags,total] = await this.hashtagRepository
-        //     .createQueryBuilder("hash")
-        //     .leftJoinAndMapMany("")
-
-        // return {
-        //     hashTags,
-        //     total
-        // }
-    }
+ 
 
     async getWithFollowers(id:number) {
         return await this.hashtagRepository.findOne({where:{id},relations:['followers']});

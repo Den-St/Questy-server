@@ -9,7 +9,9 @@ import { SubscribeDto } from './dto/subscribe.dto';
 export declare class QuestionsController {
     private readonly questionService;
     constructor(questionService: QuestionsService);
-    getByUserId(id: number): Promise<import("../entities/question.entity").QuestionEntity[]>;
+    getByUserId(dto: {
+        id: number;
+    }): Promise<import("../entities/question.entity").QuestionEntity[]>;
     create(dto: CreateQuestionDto): Promise<{
         id: number;
         createdAt: Date;
@@ -37,7 +39,9 @@ export declare class QuestionsController {
         questions: import("../entities/question.entity").QuestionEntity[];
         total: number;
     }>;
-    get(id: number): Promise<import("../entities/question.entity").QuestionEntity>;
+    get(dto: {
+        id: number;
+    }): Promise<import("../entities/question.entity").QuestionEntity>;
     rateUp(dto: RateQuestionDto): Promise<{
         rating: number;
         ratedUpUsers: import("../entities/user.entity").UserEntity[];
@@ -135,7 +139,9 @@ export declare class QuestionsController {
     } & import("../entities/question.entity").QuestionEntity>;
     unsubscribe(dto: SubscribeDto): Promise<Partial<import("../entities/user.entity").UserEntity> & import("../entities/user.entity").UserEntity>;
     seeAnswers(dto: SeeAnswersDto): Promise<Partial<import("../entities/user.entity").UserEntity> & import("../entities/user.entity").UserEntity>;
-    globalSearch(name: string): Promise<{
+    globalSearch(dto: {
+        name: string;
+    }): Promise<{
         questions: import("../entities/question.entity").QuestionEntity[];
         users: import("../entities/user.entity").UserEntity[];
         hashTags: import("../entities/hash-tag.entity").HashTagEntity[];

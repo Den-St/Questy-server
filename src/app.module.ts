@@ -41,4 +41,3 @@ import * as path from 'path';
   providers: [MessageService],
 })
 export class AppModule {}
-console.log(path.resolve('uploads/profileimages'))

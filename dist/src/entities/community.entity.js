@@ -46,7 +46,7 @@ __decorate([
     __metadata("design:type", String)
 ], CommunityEntity.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ default: 0 }),
+    (0, typeorm_1.Column)({ default: 1 }),
     __metadata("design:type", Number)
 ], CommunityEntity.prototype, "membersNumber", void 0);
 CommunityEntity = __decorate([

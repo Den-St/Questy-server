@@ -25,20 +25,16 @@ export class AuthService {
     }
 
     async register(dto:RegisterDto):Promise<AuthType> {
-        try {
-            const candidate = await this.userService.getByEmail(dto.email);
-            if (candidate) throw new HttpException("email already in use", HttpStatus.BAD_REQUEST);
+        const candidate = await this.userService.getByEmail(dto.email);
+        if (candidate) throw new HttpException("email already in use", HttpStatus.BAD_REQUEST);
 
-            const hashPassword = await bcrypt.hash(dto.password, 10);
-            const user = await this.userService.create({email:dto.email, passwordHash: hashPassword});
-            const {passwordHash,...userClientData} = user;
-            return {
-                token:this.generateToken(user),
-                ...userClientData
-            };
-        }catch (err){
-            throw new HttpException(err,HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        const hashPassword = await bcrypt.hash(dto.password, 10);
+        const user = await this.userService.create({email:dto.email, passwordHash: hashPassword});
+        const {passwordHash,...userClientData} = user;
+        return {
+            token:this.generateToken(user),
+            ...userClientData
+        };
     }
 
     async login(dto:AuthLoginDto):Promise<AuthType>{

@@ -18,6 +18,7 @@ const community_service_1 = require("./community.service");
 const common_1 = require("@nestjs/common");
 const createCommunity_dto_1 = require("./dto/createCommunity.dto");
 const getWithFilters_dto_1 = require("./dto/getWithFilters.dto");
+const paginatedMembers_dto_1 = require("./dto/paginatedMembers.dto");
 let CommunityController = class CommunityController {
     constructor(communityService) {
         this.communityService = communityService;
@@ -28,20 +29,20 @@ let CommunityController = class CommunityController {
     async getPaginated(dto) {
         return await this.communityService.getPaginated(dto);
     }
-    async get(id) {
-        return await this.communityService.get(id);
+    async get(dto) {
+        return await this.communityService.get(dto.id);
     }
-    async getUsers(id) {
-        return await this.communityService.getMembers(id);
+    async getMembers(dto) {
+        return await this.communityService.getMembers(dto);
     }
-    async getMessages(id) {
-        return await this.communityService.getMessages(id);
+    async getMessages(dto) {
+        return await this.communityService.getMessages(dto.id);
     }
     async join(dto) {
         return await this.communityService.join(dto);
     }
-    async left(dto) {
-        return await this.communityService.left(dto);
+    async leave(dto) {
+        return await this.communityService.leave(dto);
     }
     async delete(dto) {
         return await this.communityService.delete(dto.communityId);
@@ -55,31 +56,31 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], CommunityController.prototype, "create", null);
 __decorate([
-    (0, common_1.Post)('getPaginated'),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.Get)('getPaginated'),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [getWithFilters_dto_1.GetWithFiltersDto]),
     __metadata("design:returntype", Promise)
 ], CommunityController.prototype, "getPaginated", null);
 __decorate([
-    (0, common_1.Get)('getOne/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)('get'),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], CommunityController.prototype, "get", null);
 __decorate([
-    (0, common_1.Get)('getMembers/:id'),
-    __param(0, (0, common_1.Param)()),
+    (0, common_1.Get)('getMembers'),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [paginatedMembers_dto_1.PaginatedMembersDto]),
     __metadata("design:returntype", Promise)
-], CommunityController.prototype, "getUsers", null);
+], CommunityController.prototype, "getMembers", null);
 __decorate([
-    (0, common_1.Get)('getMessages/:id'),
-    __param(0, (0, common_1.Param)()),
+    (0, common_1.Get)('getMessages'),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], CommunityController.prototype, "getMessages", null);
 __decorate([
@@ -90,12 +91,12 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], CommunityController.prototype, "join", null);
 __decorate([
-    (0, common_1.Post)('left'),
+    (0, common_1.Post)('leave'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [joinCommunity_dto_1.JoinCommunityDto]),
     __metadata("design:returntype", Promise)
-], CommunityController.prototype, "left", null);
+], CommunityController.prototype, "leave", null);
 __decorate([
     (0, common_1.Delete)('delete'),
     __param(0, (0, common_1.Body)()),

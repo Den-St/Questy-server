@@ -26,8 +26,8 @@ let QuestionsController = class QuestionsController {
     constructor(questionService) {
         this.questionService = questionService;
     }
-    async getByUserId(id) {
-        return await this.questionService.getByUserId(id);
+    async getByUserId(dto) {
+        return await this.questionService.getByUserId(dto.id);
     }
     async create(dto) {
         return await this.questionService.create(dto);
@@ -38,8 +38,8 @@ let QuestionsController = class QuestionsController {
     async getPaginatedQuestions(dto) {
         return await this.questionService.getPaginatedQuestions(dto);
     }
-    async get(id) {
-        return await this.questionService.get(id);
+    async get(dto) {
+        return await this.questionService.get(dto.id);
     }
     async rateUp(dto) {
         return await this.questionService.rateUp(dto);
@@ -62,15 +62,15 @@ let QuestionsController = class QuestionsController {
     async seeAnswers(dto) {
         return await this.questionService.seeAnswers(dto);
     }
-    async globalSearch(name) {
-        return await this.questionService.globalSearch(name);
+    async globalSearch(dto) {
+        return await this.questionService.globalSearch(dto.name);
     }
 };
 __decorate([
-    (0, common_1.Get)("getByUserId/:id"),
-    __param(0, (0, common_1.Param)("id")),
+    (0, common_1.Get)("getByUserId"),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], QuestionsController.prototype, "getByUserId", null);
 __decorate([
@@ -81,24 +81,24 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], QuestionsController.prototype, "create", null);
 __decorate([
-    (0, common_1.Post)('getByUserIdPaginated'),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.Get)('getByUserIdPaginated'),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [getByUserIdPaginated_dto_1.GetByUserIdPaginatedDto]),
     __metadata("design:returntype", Promise)
 ], QuestionsController.prototype, "getByUserIdPaginated", null);
 __decorate([
-    (0, common_1.Post)('getPaginatedQuestions'),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.Get)('getPaginatedQuestions'),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [getPaginatedQuestions_dto_1.GetPaginatedQuestions]),
     __metadata("design:returntype", Promise)
 ], QuestionsController.prototype, "getPaginatedQuestions", null);
 __decorate([
-    (0, common_1.Get)("get/:id"),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)("get"),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], QuestionsController.prototype, "get", null);
 __decorate([
@@ -151,10 +151,10 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], QuestionsController.prototype, "seeAnswers", null);
 __decorate([
-    (0, common_1.Get)('globalSearch/:name'),
-    __param(0, (0, common_1.Param)('name')),
+    (0, common_1.Get)('globalSearch'),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], QuestionsController.prototype, "globalSearch", null);
 QuestionsController = __decorate([

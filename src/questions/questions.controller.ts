@@ -1,7 +1,7 @@
 import { SeeAnswersDto } from './dto/see-answers.dto';
 import { ViewDto } from './dto/view.dto';
 import { QuestionsService } from './questions.service';
-import { Body, Controller, Get,Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Req, Query } from '@nestjs/common';
 import { CreateQuestionDto } from './dto/create.dto';
 import { GetByUserIdPaginatedDto } from 'src/answers/dto/getByUserIdPaginated.dto';
 import { GetPaginatedQuestions } from 'src/hash-tags/dto/getPaginatedQuestions.dto';
@@ -12,9 +12,9 @@ import { SubscribeDto } from './dto/subscribe.dto';
 export class QuestionsController {
     constructor(private readonly questionService:QuestionsService){}
 
-    @Get("getByUserId/:id")
-    async getByUserId(@Param("id") id:number){
-        return await this.questionService.getByUserId(id);
+    @Get("getByUserId")
+    async getByUserId(@Query() dto:{id:number}){
+        return await this.questionService.getByUserId(dto.id);
     }
 
     @Post('create')
@@ -22,19 +22,19 @@ export class QuestionsController {
         return await this.questionService.create(dto);
     }
 
-    @Post('getByUserIdPaginated')
-    async getByUserIdPaginated(@Body() dto:GetByUserIdPaginatedDto){
+    @Get('getByUserIdPaginated')
+    async getByUserIdPaginated(@Query() dto:GetByUserIdPaginatedDto){
         return await this.questionService.getByUserIdPaginated(dto);
     }
 
-    @Post('getPaginatedQuestions')
-    async getPaginatedQuestions(@Body() dto:GetPaginatedQuestions){
+    @Get('getPaginatedQuestions')
+    async getPaginatedQuestions(@Query() dto:GetPaginatedQuestions){
         return await this.questionService.getPaginatedQuestions(dto);
     }
 
-    @Get("get/:id")
-    async get(@Param('id') id:number) {
-        return await this.questionService.get(id);
+    @Get("get")
+    async get(@Query() dto:{id:number}) {
+        return await this.questionService.get(dto.id);
     }
 
     @Post('rateUp')
@@ -74,9 +74,9 @@ export class QuestionsController {
         return await this.questionService.seeAnswers(dto)
     }
 
-    @Get('globalSearch/:name')
-    async globalSearch(@Param('name') name:string) {
-        return await this.questionService.globalSearch(name);
+    @Get('globalSearch')
+    async globalSearch(@Query() dto:{name:string}) {
+        return await this.questionService.globalSearch(dto.name);
     }
 }
 

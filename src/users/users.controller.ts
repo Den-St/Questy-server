@@ -1,3 +1,4 @@
+import { PaginatedMembersDto } from './../community/dto/paginatedMembers.dto';
 import { SetUserDetailedInfoDto } from './dto/set-detailed-info.dto';
 import { CreateUserDto } from './dto/create.dto';
 import { UsersService } from './users.service';
@@ -19,8 +20,8 @@ export class UsersController {
         return await this.usersService.setDetailedInfo(dto);
     }
 
-    @Post('getAllPaginated')
-    async getAllPaginate(@Body() dto:GetPaginatedDto){
+    @Get('getAllPaginated/:page/:pageSize/:fieldName/:orderValue/:search?')
+    async getAllPaginate(@Param() dto:GetPaginatedDto){
         return await this.usersService.getAllPaginate(dto);
     }
 
@@ -64,5 +65,8 @@ export class UsersController {
         return await this.usersService.addToFavoriteHashTag(dto);
     }
 
-   
+   @Get('getMembers/:page/:pageSize/:communityId')
+   async getMembers(@Param() dto:PaginatedMembersDto){
+        return await this.usersService.getMembers(dto);
+   }
 }

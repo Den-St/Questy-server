@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Param, Delete } from '@nestjs/common';
+import { Body, Controller, Get, Post, Param, Delete, Patch, Query } from '@nestjs/common';
 import { CreateDto } from './dto/createDto';
 import { DeleteDto } from './dto/delete.dto';
 import { EditDto } from './dto/edit.dto';
@@ -10,23 +10,21 @@ export class QuestionTemplatesController {
 
     @Post('create')
     async create(@Body() dto:CreateDto) {
-        console.log('v',dto)
         return await this.questionTemplatesService.create(dto);
     }
 
-    @Get('get/:id')
-    async get(@Param('id') id:number){
-        return await this.questionTemplatesService.get(id);
+    @Get('get')
+    async get(@Query() dto:{id:number}){
+        return await this.questionTemplatesService.get(dto.id);
     }
 
-    @Get('getAllByUserId/:userId')
-    async getAllByUserId(@Param('userId') userId:number){
-        return await this.questionTemplatesService.getAllByUserId(userId);
+    @Get('getAllByUserId')
+    async getAllByUserId(@Query() dto:{userId:number}){
+        return await this.questionTemplatesService.getAllByUserId(dto.userId);
     }
 
-    @Post('edit')
+    @Patch('edit')
     async edit(@Body() dto:EditDto) {
-        console.log('dto',dto)
         return await this.questionTemplatesService.edit(dto);
     }
     

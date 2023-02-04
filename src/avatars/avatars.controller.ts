@@ -19,15 +19,8 @@ export class AvatarsController {
         })
     }))
     uploadFile(@UploadedFile() file:Express.Multer.File) {
-        console.log('asdgds',file);
         return {
             avatarPath:file.path
         }
-    }
-
-
-    @Get('get/:path')
-    get(@Param('path') path,@Res() res) {
-        return res.sendFile(join(process.cwd(),'uploads/profileimages/' + path));
     }
 }

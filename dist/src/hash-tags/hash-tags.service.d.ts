@@ -4,7 +4,6 @@ import { HashTagEntity } from '../entities/hash-tag.entity';
 import { Repository } from 'typeorm';
 import { CreateHashTagDto } from './dto/create.dto';
 import { GetPaginatedDto } from 'src/users/dto/GetPaginated.dto';
-import { GetPaginatedQuestions } from './dto/getPaginatedQuestions.dto';
 import { UserEntity } from 'src/entities/user.entity';
 export declare class HashTagsService {
     private readonly hashtagRepository;
@@ -52,7 +51,6 @@ export declare class HashTagsService {
         hashTags: HashTagEntity[];
         total: number;
     }>;
-    getPaginatedQuestions(dto: GetPaginatedQuestions): Promise<void>;
     getWithFollowers(id: number): Promise<HashTagEntity>;
     addFollower(dto: {
         user: UserEntity;

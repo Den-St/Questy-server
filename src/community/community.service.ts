@@ -1,3 +1,4 @@
+import { PaginatedMembersDto } from './dto/paginatedMembers.dto';
 import { GetWithFiltersDto } from './dto/getWithFilters.dto';
 import { HashTagsService } from 'src/hash-tags/hash-tags.service';
 import { HashTagEntity } from 'src/entities/hash-tag.entity';
@@ -31,10 +32,13 @@ export class CommunityService {
     }
 
     async get(id:number) {
-        return await this.communityRepository.findOne({where:{id}}); 
+        return await this.communityRepository.findOne({where:{id},relations:['creator','creator.avatar']}); 
     }
-    async getMembers(id:number) {
-        return await this.communityRepository.findOne({where:{id},relations:['members']});
+    async getMembers(dto:PaginatedMembersDto) {
+        const take = dto.pageSize || 4;
+        const skip = ((dto.page || 1) - 1) * (dto.pageSize || 4)
+        return await (await this.communityRepository.findOne({
+            where:{id:dto.communityId},relations:['members']})).members;
     }
     async getMessages(id:number) {
         return await this.communityRepository.findOne({where:{id},relations:['messages']});
@@ -44,7 +48,6 @@ export class CommunityService {
         const skip = ((dto.page || 1) - 1) * (dto.pageSize || 10);
         const take = (dto.pageSize || 10);
         const hashTags = dto?.hashTags?.split(";").filter(hashTag => hashTag.length);
-        console.log(dto)
         const [communities,total] = await this.communityRepository.findAndCount({
             where:{hashTags:(hashTags?.length ? {name:In(hashTags)} : null),name:Like(`%${dto?.search || ''}%`)}
             ,skip
@@ -52,8 +55,7 @@ export class CommunityService {
             ,order:{[dto?.orderRule?.fieldName || 'createdAt']:dto.orderRule.orderValue || 'DESC'}
             ,relations:['hashTags']
         });
-        
-        console.log(communities);
+
         return {
             communities,
             total
@@ -67,7 +69,7 @@ export class CommunityService {
         return await this.communityRepository.save({...community,members:[...community.members,user],membersNumber:community.membersNumber + 1});
     }
 
-    async left(dto:JoinCommunityDto) {
+    async leave(dto:JoinCommunityDto) {
         const community = await this.communityRepository.findOne({where:{id:dto.communityId},relations:['members']});
         const user = await this.userService.getById(dto.userId);
 

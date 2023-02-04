@@ -25,7 +25,6 @@ const community_module_1 = require("./community/community.module");
 const message_service_1 = require("./message/message.service");
 const message_controller_1 = require("./message/message.controller");
 const message_module_1 = require("./message/message.module");
-const path = require("path");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -49,5 +48,4 @@ AppModule = __decorate([
     })
 ], AppModule);
 exports.AppModule = AppModule;
-console.log(path.resolve('uploads/profileimages'));
 //# sourceMappingURL=app.module.js.map

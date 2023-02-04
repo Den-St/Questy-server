@@ -71,12 +71,16 @@ export declare class AnswersController {
         subscribersWhoHaveNotSeen: import("../entities/user.entity").UserEntity[];
         subscribers: import("../entities/user.entity").UserEntity[];
     } & import("../entities/answer.entity").AnswerEntity>;
-    getByUserId(id: number): Promise<import("../entities/answer.entity").AnswerEntity[]>;
+    getByUserId(dto: {
+        id: number;
+    }): Promise<import("../entities/answer.entity").AnswerEntity[]>;
     getByUserIdPaginated(dto: GetByUserIdPaginatedDto): Promise<{
         total: number;
         answers: import("../entities/answer.entity").AnswerEntity[];
     }>;
-    getByQuestionId(id: number): Promise<import("../entities/answer.entity").AnswerEntity[]>;
+    getByQuestionId(dto: {
+        id: number;
+    }): Promise<import("../entities/answer.entity").AnswerEntity[]>;
     rateUp(dto: RateAnswerDto): Promise<{
         rating: number;
         ratedUpUsers: import("../entities/user.entity").UserEntity[];

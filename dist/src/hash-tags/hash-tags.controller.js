@@ -17,7 +17,6 @@ const create_dto_1 = require("./dto/create.dto");
 const common_1 = require("@nestjs/common");
 const getByUserIdPaginated_dto_1 = require("../answers/dto/getByUserIdPaginated.dto");
 const GetPaginated_dto_1 = require("../users/dto/GetPaginated.dto");
-const getPaginatedQuestions_dto_1 = require("./dto/getPaginatedQuestions.dto");
 const search_by_name_dto_1 = require("./dto/search-by-name.dto");
 const hash_tags_service_1 = require("./hash-tags.service");
 let HashTagsController = class HashTagsController {
@@ -36,9 +35,6 @@ let HashTagsController = class HashTagsController {
     async getPaginated(dto) {
         return await this.hashTagsService.getPaginated(dto);
     }
-    async getPaginatedQuestions(dto) {
-        return await this.hashTagsService.getPaginatedQuestions(dto);
-    }
 };
 __decorate([
     (0, common_1.Post)('create'),
@@ -48,33 +44,26 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], HashTagsController.prototype, "create", null);
 __decorate([
-    (0, common_1.Post)('/searchByName'),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.Get)('searchByName'),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [search_by_name_dto_1.SearchHashTagsByName]),
     __metadata("design:returntype", Promise)
 ], HashTagsController.prototype, "searchByHame", null);
 __decorate([
-    (0, common_1.Post)('/getCreatedHashTagsPaginated'),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.Get)('getCreatedHashTagsPaginated'),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [getByUserIdPaginated_dto_1.GetByUserIdPaginatedDto]),
     __metadata("design:returntype", Promise)
 ], HashTagsController.prototype, "getCreatedHashTagsPaginated", null);
 __decorate([
-    (0, common_1.Post)("/getPaginated"),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.Get)("getPaginated"),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [GetPaginated_dto_1.GetPaginatedDto]),
     __metadata("design:returntype", Promise)
 ], HashTagsController.prototype, "getPaginated", null);
-__decorate([
-    (0, common_1.Post)('/getPaginatedQuestions'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [getPaginatedQuestions_dto_1.GetPaginatedQuestions]),
-    __metadata("design:returntype", Promise)
-], HashTagsController.prototype, "getPaginatedQuestions", null);
 HashTagsController = __decorate([
     (0, common_1.Controller)('hash-tags'),
     __metadata("design:paramtypes", [hash_tags_service_1.HashTagsService])

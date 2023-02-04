@@ -34,14 +34,14 @@ export class AnswersService {
     }
 
     async getByUserIdPaginated(dto:GetByUserIdPaginatedDto) {
-        const skip = ((dto.page || 1) - 1) * (dto.pageSize || 10);
-        const take = (dto.pageSize || 10);
+        const skip = ((+dto.page || 1) - 1) * (+dto.pageSize || 10);
+        const take = (+dto.pageSize || 10);
 
         const [answers,total] = await this.answersRepository
             .findAndCount({
                 where:{'creator':{'id':dto.userId}},
                 take,skip,relations:['question','question.hashTags']
-                ,order:{[dto?.orderRule?.fieldName || 'createdAt']:dto.orderRule.orderValue || 'DESC'}
+                ,order:{[dto?.fieldName || 'createdAt']:dto?.orderValue || 'DESC'}
 
             });
 

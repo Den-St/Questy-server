@@ -1,5 +1,5 @@
 import { CreateHashTagDto } from './dto/create.dto';
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Param, Query } from '@nestjs/common';
 import { GetByUserIdPaginatedDto } from 'src/answers/dto/getByUserIdPaginated.dto';
 import { GetPaginatedDto } from 'src/users/dto/GetPaginated.dto';
 import { GetPaginatedQuestions } from './dto/getPaginatedQuestions.dto';
@@ -15,23 +15,19 @@ export class HashTagsController {
         return await this.hashTagsService.create(dto);
     }
 
-    @Post('/searchByName')
-    async searchByHame(@Body() dto:SearchHashTagsByName){
+    @Get('searchByName')
+    async searchByHame(@Query() dto:SearchHashTagsByName){
         return await this.hashTagsService.searchByName(dto.name);
     }
 
-    @Post('/getCreatedHashTagsPaginated')
-    async getCreatedHashTagsPaginated(@Body() dto:GetByUserIdPaginatedDto){
+    @Get('getCreatedHashTagsPaginated')
+    async getCreatedHashTagsPaginated(@Query() dto:GetByUserIdPaginatedDto){
         return await this.hashTagsService.getCreatedHashTagsPaginated(dto);
     }
 
-    @Post("/getPaginated")
-    async getPaginated(@Body() dto:GetPaginatedDto) {
+    @Get("getPaginated")
+    async getPaginated(@Query() dto:GetPaginatedDto) {
         return await this.hashTagsService.getPaginated(dto);
     }
 
-    @Post('/getPaginatedQuestions')
-    async getPaginatedQuestions(@Body() dto:GetPaginatedQuestions){
-        return await this.hashTagsService.getPaginatedQuestions(dto);
-    }
 }

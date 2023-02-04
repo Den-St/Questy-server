@@ -52,14 +52,13 @@ let QuestionsService = class QuestionsService {
         return await this.questionsRepository.save(Object.assign({}, newQuestion));
     }
     async getByUserIdPaginated(dto) {
-        var _a;
-        const skip = ((dto.page || 1) - 1) * (dto.pageSize || 10);
-        const take = (dto.pageSize || 10);
+        const skip = ((+dto.page || 1) - 1) * (+dto.pageSize || 10);
+        const take = (+dto.pageSize || 10);
         const [questions, total] = await this.questionsRepository
             .findAndCount({
             where: { 'creator': { 'id': dto.userId } },
             take, skip, relations: ['hashTags'],
-            order: { [((_a = dto === null || dto === void 0 ? void 0 : dto.orderRule) === null || _a === void 0 ? void 0 : _a.fieldName) || 'createdAt']: dto.orderRule.orderValue || 'DESC' }
+            order: { [(dto === null || dto === void 0 ? void 0 : dto.fieldName) || 'createdAt']: (dto === null || dto === void 0 ? void 0 : dto.orderValue) || 'DESC' }
         });
         return {
             questions,
@@ -67,7 +66,7 @@ let QuestionsService = class QuestionsService {
         };
     }
     async getPaginatedQuestions(dto) {
-        var _a, _b;
+        var _a;
         const skip = ((dto.page || 1) - 1) * (dto.pageSize || 10);
         const take = (dto.pageSize || 10);
         const hashTags = (_a = dto === null || dto === void 0 ? void 0 : dto.hashTags) === null || _a === void 0 ? void 0 : _a.split(";").filter(hashTag => hashTag.length);
@@ -76,7 +75,7 @@ let QuestionsService = class QuestionsService {
             where: { hashTags: ((hashTags === null || hashTags === void 0 ? void 0 : hashTags.length) ? { name: (0, typeorm_2.In)(hashTags) } : null), title: (0, typeorm_2.Like)(`%${dto.search || ''}%`), haveCorrectAnswer: (dto.onlyAnswered === false ? null : true) },
             skip,
             take,
-            order: { [((_b = dto === null || dto === void 0 ? void 0 : dto.orderRule) === null || _b === void 0 ? void 0 : _b.fieldName) || 'createdAt']: dto.orderRule.orderValue || 'DESC' },
+            order: { [(dto === null || dto === void 0 ? void 0 : dto.fieldName) || 'createdAt']: (dto === null || dto === void 0 ? void 0 : dto.orderValue) || 'DESC' },
             relations: ['hashTags']
         });
         return {
@@ -86,7 +85,6 @@ let QuestionsService = class QuestionsService {
     }
     async get(id) {
         const question = await this.questionsRepository.findOne({ where: { id }, relations: ['ratedUpUsers', 'ratedDownUsers', 'subscribers'] });
-        console.log('q', question);
         return question;
     }
     async getWithSubscribers(id) {
@@ -109,14 +107,11 @@ let QuestionsService = class QuestionsService {
         const question = await this.questionsRepository.findOne({ where: { id: dto.questionId }, relations: ['ratedUpUsers', 'ratedDownUsers'] });
         await this.usersService.save(Object.assign(Object.assign({}, user), { ratedDownQuestions: [...user.ratedDownQuestions.filter(ratedDownQuestion => ratedDownQuestion.id !== question.id)], ratedUpQuestions: [...user.ratedUpQuestions.filter(ratedUpQuestion => ratedUpQuestion.id !== question.id)] }));
         if (!!question.ratedUpUsers.filter(ratedUpUser => ratedUpUser.id === user.id).length) {
-            console.log('bv');
             return await this.questionsRepository.save(Object.assign(Object.assign({}, question), { rating: question.rating - 1, ratedUpUsers: [...question.ratedUpUsers.filter(ratedUpUser => ratedUpUser.id !== user.id)] }));
         }
         if (!!question.ratedDownUsers.filter(ratedUpUser => ratedUpUser.id === user.id).length) {
-            console.log('bv');
             return await this.questionsRepository.save(Object.assign(Object.assign({}, question), { rating: question.rating + 1, ratedDownUsers: [...question.ratedDownUsers.filter(ratedDownUser => ratedDownUser.id !== user.id)] }));
         }
-        console.log('bv');
     }
     async view(dto) {
         const question = await this.questionsRepository.findOne({ where: { id: dto.questionId }, relations: ['viewers'] });
@@ -153,19 +148,15 @@ let QuestionsService = class QuestionsService {
             order: { 'rating': 'DESC' }
         });
         const { hashTags } = await this.hashTagsService.getPaginated({
-            orderRule: {
-                fieldName: 'questionsNumber',
-                orderValue: 'DESC'
-            },
+            fieldName: 'questionsNumber',
+            orderValue: 'DESC',
             page: 1,
             pageSize: 5,
             search: name
         });
         const { users } = await this.usersService.getAllPaginate({
-            orderRule: {
-                fieldName: 'numberOfAnswers',
-                orderValue: 'DESC'
-            },
+            fieldName: 'numberOfAnswers',
+            orderValue: 'DESC',
             page: 1,
             pageSize: 5,
             search: name

@@ -22,17 +22,15 @@ let QuestionTemplatesController = class QuestionTemplatesController {
         this.questionTemplatesService = questionTemplatesService;
     }
     async create(dto) {
-        console.log('v', dto);
         return await this.questionTemplatesService.create(dto);
     }
-    async get(id) {
-        return await this.questionTemplatesService.get(id);
+    async get(dto) {
+        return await this.questionTemplatesService.get(dto.id);
     }
-    async getAllByUserId(userId) {
-        return await this.questionTemplatesService.getAllByUserId(userId);
+    async getAllByUserId(dto) {
+        return await this.questionTemplatesService.getAllByUserId(dto.userId);
     }
     async edit(dto) {
-        console.log('dto', dto);
         return await this.questionTemplatesService.edit(dto);
     }
     async delete(id) {
@@ -47,21 +45,21 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], QuestionTemplatesController.prototype, "create", null);
 __decorate([
-    (0, common_1.Get)('get/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)('get'),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], QuestionTemplatesController.prototype, "get", null);
 __decorate([
-    (0, common_1.Get)('getAllByUserId/:userId'),
-    __param(0, (0, common_1.Param)('userId')),
+    (0, common_1.Get)('getAllByUserId'),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], QuestionTemplatesController.prototype, "getAllByUserId", null);
 __decorate([
-    (0, common_1.Post)('edit'),
+    (0, common_1.Patch)('edit'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [edit_dto_1.EditDto]),

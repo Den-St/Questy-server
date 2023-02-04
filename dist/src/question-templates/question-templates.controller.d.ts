@@ -10,8 +10,12 @@ export declare class QuestionTemplatesController {
         body: string;
         title: string;
     } & import("../entities/question-template.entity").QuestionTemplateEntity>;
-    get(id: number): Promise<import("../entities/question-template.entity").QuestionTemplateEntity>;
-    getAllByUserId(userId: number): Promise<import("../entities/question-template.entity").QuestionTemplateEntity[]>;
+    get(dto: {
+        id: number;
+    }): Promise<import("../entities/question-template.entity").QuestionTemplateEntity>;
+    getAllByUserId(dto: {
+        userId: number;
+    }): Promise<import("../entities/question-template.entity").QuestionTemplateEntity[]>;
     edit(dto: EditDto): Promise<{
         title: string;
         body: string;

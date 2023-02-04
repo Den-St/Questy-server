@@ -1,3 +1,4 @@
+import { PaginatedMembersDto } from './../community/dto/paginatedMembers.dto';
 import { JwtService } from '@nestjs/jwt';
 import { AvatarsService } from '../avatars/avatars.service';
 import { HashTagEntity } from '../entities/hash-tag.entity';
@@ -436,4 +437,8 @@ export declare class UsersService {
         token: string;
     }>;
     getWithCreatedCommunitiesAndCommunities(id: number): Promise<UserEntity>;
+    getMembers(dto: PaginatedMembersDto): Promise<{
+        members: UserEntity[];
+        total: number;
+    }>;
 }

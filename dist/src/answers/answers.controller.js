@@ -25,14 +25,14 @@ let AnswersController = class AnswersController {
     async create(dto) {
         return await this.answersService.create(dto);
     }
-    async getByUserId(id) {
-        return await this.answersService.getByUserId(id);
+    async getByUserId(dto) {
+        return await this.answersService.getByUserId(dto.id);
     }
     async getByUserIdPaginated(dto) {
         return await this.answersService.getByUserIdPaginated(dto);
     }
-    async getByQuestionId(id) {
-        return await this.answersService.getByQuestionId(id);
+    async getByQuestionId(dto) {
+        return await this.answersService.getByQuestionId(dto.id);
     }
     async rateUp(dto) {
         return await this.answersService.rateUp(dto);
@@ -55,24 +55,24 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AnswersController.prototype, "create", null);
 __decorate([
-    (0, common_1.Get)('getByUserId/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)('getByUserId'),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AnswersController.prototype, "getByUserId", null);
 __decorate([
-    (0, common_1.Post)('getByUserIdPaginated'),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.Get)('getByUserIdPaginated'),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [getByUserIdPaginated_dto_1.GetByUserIdPaginatedDto]),
     __metadata("design:returntype", Promise)
 ], AnswersController.prototype, "getByUserIdPaginated", null);
 __decorate([
-    (0, common_1.Get)('getByQuestionId/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)('getByQuestionId'),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AnswersController.prototype, "getByQuestionId", null);
 __decorate([

@@ -41,7 +41,6 @@ let HashTagsService = class HashTagsService {
     }
     async getByNameWithInUsed(name) {
         const hashTag = await this.hashtagRepository.findOne({ where: { name }, relations: ['usedBy'] });
-        console.log('f', hashTag);
         return hashTag;
     }
     async upPopularity(id) {
@@ -64,16 +63,15 @@ let HashTagsService = class HashTagsService {
         return hashTag;
     }
     async getCreatedHashTagsPaginated(dto) {
-        var _a;
-        const skip = ((dto.page || 1) - 1) * (dto.pageSize || 10);
-        const take = (dto.pageSize || 10);
+        const skip = ((+dto.page || 1) - 1) * (+dto.pageSize || 10);
+        const take = (+dto.pageSize || 10);
         const [hashTags, total] = await this.hashtagRepository
             .findAndCount({
             where: { 'creator': { 'id': dto.userId } },
             relations: ['creator'],
             skip,
             take,
-            order: { [((_a = dto === null || dto === void 0 ? void 0 : dto.orderRule) === null || _a === void 0 ? void 0 : _a.fieldName) || 'createdAt']: dto.orderRule.orderValue || 'DESC' }
+            order: { [(dto === null || dto === void 0 ? void 0 : dto.fieldName) || 'createdAt']: (dto === null || dto === void 0 ? void 0 : dto.orderValue) || 'DESC' }
         });
         return {
             hashTags,
@@ -81,23 +79,18 @@ let HashTagsService = class HashTagsService {
         };
     }
     async getPaginated(dto) {
-        var _a, _b;
         const skip = ((dto.page || 1) - 1) * (dto.pageSize || 10);
         const take = (dto.pageSize || 10);
         const [hashTags, total] = await this.hashtagRepository
             .findAndCount({
             take, skip,
-            order: { [((_a = dto === null || dto === void 0 ? void 0 : dto.orderRule) === null || _a === void 0 ? void 0 : _a.fieldName) || 'questionsNumber']: (((_b = dto === null || dto === void 0 ? void 0 : dto.orderRule) === null || _b === void 0 ? void 0 : _b.orderValue) || 'ASC') },
+            order: { [(dto === null || dto === void 0 ? void 0 : dto.fieldName) || 'questionsNumber']: ((dto === null || dto === void 0 ? void 0 : dto.orderValue) || 'ASC') },
             where: { name: (0, typeorm_2.Like)(`%${dto.search || ""}%`) }
         });
         return {
             hashTags,
             total
         };
-    }
-    async getPaginatedQuestions(dto) {
-        const skip = ((dto.page || 1) - 1) * (dto.pageSize || 10);
-        const take = (dto.pageSize || 10);
     }
     async getWithFollowers(id) {
         return await this.hashtagRepository.findOne({ where: { id }, relations: ['followers'] });

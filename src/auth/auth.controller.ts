@@ -2,7 +2,7 @@ import { AuthGuard } from './AuthGuard.decorator';
 import { RegisterDto } from './dto/register.dto';
 import {AuthService} from "./auth.service";
 import {AuthLoginDto} from "./dto/auth-login.dto";
-import {Body, Controller, Get, Post, UseGuards} from "@nestjs/common";
+import {Body, Controller, Get, Param, Post, Query, UseGuards} from "@nestjs/common";
 import {AuthType} from "./types/auth.type";
 import { Token } from './Token.decorator';
 
@@ -17,8 +17,8 @@ export class AuthController {
         return await this.authService.register(dto);
     }
 
-    @Post('login')
-    async login(@Body() dto:AuthLoginDto):Promise<AuthType> {
+    @Get('login')
+    async login(@Query() dto:AuthLoginDto):Promise<AuthType> {
         return await this.authService.login(dto);
     }
 

@@ -27,6 +27,6 @@ export class CommunityEntity {
     @Column()
     name:string;
     
-    @Column({default:0})
+    @Column({default:1})
     membersNumber:number;
 }

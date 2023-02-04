@@ -1,8 +1,9 @@
 import { JoinCommunityDto } from './dto/joinCommunity.dto';
 import { CommunityService } from './community.service';
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
 import { CreateCommunityDto } from './dto/createCommunity.dto';
 import { GetWithFiltersDto } from './dto/getWithFilters.dto';
+import { PaginatedMembersDto } from './dto/paginatedMembers.dto';
 
 @Controller('community')
 export class CommunityController {
@@ -13,24 +14,24 @@ export class CommunityController {
         return await this.communityService.create(dto);
     }
 
-    @Post('getPaginated')
-    async getPaginated(@Body() dto:GetWithFiltersDto) {
+    @Get('getPaginated')
+    async getPaginated(@Query() dto:GetWithFiltersDto) {
         return await this.communityService.getPaginated(dto);
     }
 
-    @Get('getOne/:id')
-    async get(@Param('id') id:number){
-        return await this.communityService.get(id);
+    @Get('get')
+    async get(@Query() dto:{id:number}){
+        return await this.communityService.get(dto.id);
     }
 
-    @Get('getMembers/:id') 
-    async getUsers(@Param() id:number){
-        return await this.communityService.getMembers(id);
+    @Get('getMembers') 
+    async getMembers(@Query() dto:PaginatedMembersDto){
+        return await this.communityService.getMembers(dto);
     }
 
-    @Get('getMessages/:id')
-    async getMessages(@Param() id:number) {
-        return await this.communityService.getMessages(id);
+    @Get('getMessages')
+    async getMessages(@Query() dto:{id:number}) {
+        return await this.communityService.getMessages(dto.id);
     }
 
     @Post('join')
@@ -38,9 +39,9 @@ export class CommunityController {
         return await this.communityService.join(dto);
     }
 
-    @Post('left')
-    async left(@Body() dto:JoinCommunityDto) {
-        return await this.communityService.left(dto);
+    @Post('leave')
+    async leave(@Body() dto:JoinCommunityDto) {
+        return await this.communityService.leave(dto);
     }
 
     @Delete('delete')

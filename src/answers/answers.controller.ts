@@ -1,6 +1,6 @@
 import { CreateAnswerDto } from './dto/create.dto';
 import { AnswersService } from './answers.service';
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { GetByUserIdPaginatedDto } from './dto/getByUserIdPaginated.dto';
 import { GetByUserIdFirstFive } from 'src/questions/dto/getByUserIdFirstFive.dto';
 import { RateAnswerDto } from './dto/rate-answer.dto';
@@ -14,19 +14,19 @@ export class AnswersController {
         return await this.answersService.create(dto);
     }
 
-    @Get('getByUserId/:id')
-    async getByUserId(@Param('id') id:number) {
-        return await this.answersService.getByUserId(id);
+    @Get('getByUserId')
+    async getByUserId(@Query() dto:{id:number}) {
+        return await this.answersService.getByUserId(dto.id);
     }
 
-    @Post('getByUserIdPaginated')
-    async getByUserIdPaginated(@Body() dto:GetByUserIdPaginatedDto){
+    @Get('getByUserIdPaginated')
+    async getByUserIdPaginated(@Query() dto:GetByUserIdPaginatedDto){
         return await this.answersService.getByUserIdPaginated(dto);
     }
 
-    @Get('getByQuestionId/:id')
-    async getByQuestionId(@Param('id') id:number) {
-        return await this.answersService.getByQuestionId(id);
+    @Get('getByQuestionId')
+    async getByQuestionId(@Query() dto:{id:number}) {
+        return await this.answersService.getByQuestionId(dto.id);
     }
 
     @Post('rateUp')

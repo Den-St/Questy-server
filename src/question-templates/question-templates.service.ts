@@ -19,7 +19,6 @@ export class QuestionTemplatesService {
     ) {}
 
     async create(dto:CreateDto) {
-        console.log(dto)
         const creator = await this.usersService.getById(dto.creatorId);
         const hashTags:HashTagEntity[] = [];
 

@@ -2,6 +2,7 @@ import { JoinCommunityDto } from './dto/joinCommunity.dto';
 import { CommunityService } from './community.service';
 import { CreateCommunityDto } from './dto/createCommunity.dto';
 import { GetWithFiltersDto } from './dto/getWithFilters.dto';
+import { PaginatedMembersDto } from './dto/paginatedMembers.dto';
 export declare class CommunityController {
     private readonly communityService;
     constructor(communityService: CommunityService);
@@ -10,9 +11,13 @@ export declare class CommunityController {
         communities: import("../entities/community.entity").CommunityEntity[];
         total: number;
     }>;
-    get(id: number): Promise<import("../entities/community.entity").CommunityEntity>;
-    getUsers(id: number): Promise<import("../entities/community.entity").CommunityEntity>;
-    getMessages(id: number): Promise<import("../entities/community.entity").CommunityEntity>;
+    get(dto: {
+        id: number;
+    }): Promise<import("../entities/community.entity").CommunityEntity>;
+    getMembers(dto: PaginatedMembersDto): Promise<import("../entities/user.entity").UserEntity[]>;
+    getMessages(dto: {
+        id: number;
+    }): Promise<import("../entities/community.entity").CommunityEntity>;
     join(dto: JoinCommunityDto): Promise<{
         members: import("../entities/user.entity").UserEntity[];
         membersNumber: number;
@@ -23,7 +28,7 @@ export declare class CommunityController {
         hashTags: import("../entities/hash-tag.entity").HashTagEntity[];
         name: string;
     } & import("../entities/community.entity").CommunityEntity>;
-    left(dto: JoinCommunityDto): Promise<{
+    leave(dto: JoinCommunityDto): Promise<{
         members: import("../entities/user.entity").UserEntity[];
         membersNumber: number;
         id: number;

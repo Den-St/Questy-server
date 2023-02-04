@@ -27,7 +27,6 @@ let QuestionTemplatesService = class QuestionTemplatesService {
         this.hashTagsService = hashTagsService;
     }
     async create(dto) {
-        console.log(dto);
         const creator = await this.usersService.getById(dto.creatorId);
         const hashTags = [];
         for (let i = 0; i < dto.hashTags.length; i++) {

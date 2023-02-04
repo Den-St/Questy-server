@@ -36,10 +36,14 @@ let CommunityService = class CommunityService {
         return await this.communityRepository.save(community);
     }
     async get(id) {
-        return await this.communityRepository.findOne({ where: { id } });
+        return await this.communityRepository.findOne({ where: { id }, relations: ['creator', 'creator.avatar'] });
     }
-    async getMembers(id) {
-        return await this.communityRepository.findOne({ where: { id }, relations: ['members'] });
+    async getMembers(dto) {
+        const take = dto.pageSize || 4;
+        const skip = ((dto.page || 1) - 1) * (dto.pageSize || 4);
+        return await (await this.communityRepository.findOne({
+            where: { id: dto.communityId }, relations: ['members']
+        })).members;
     }
     async getMessages(id) {
         return await this.communityRepository.findOne({ where: { id }, relations: ['messages'] });
@@ -49,7 +53,6 @@ let CommunityService = class CommunityService {
         const skip = ((dto.page || 1) - 1) * (dto.pageSize || 10);
         const take = (dto.pageSize || 10);
         const hashTags = (_a = dto === null || dto === void 0 ? void 0 : dto.hashTags) === null || _a === void 0 ? void 0 : _a.split(";").filter(hashTag => hashTag.length);
-        console.log(dto);
         const [communities, total] = await this.communityRepository.findAndCount({
             where: { hashTags: ((hashTags === null || hashTags === void 0 ? void 0 : hashTags.length) ? { name: (0, typeorm_1.In)(hashTags) } : null), name: (0, typeorm_1.Like)(`%${(dto === null || dto === void 0 ? void 0 : dto.search) || ''}%`) },
             skip,
@@ -57,7 +60,6 @@ let CommunityService = class CommunityService {
             order: { [((_b = dto === null || dto === void 0 ? void 0 : dto.orderRule) === null || _b === void 0 ? void 0 : _b.fieldName) || 'createdAt']: dto.orderRule.orderValue || 'DESC' },
             relations: ['hashTags']
         });
-        console.log(communities);
         return {
             communities,
             total
@@ -68,7 +70,7 @@ let CommunityService = class CommunityService {
         const user = await this.userService.getById(dto.userId);
         return await this.communityRepository.save(Object.assign(Object.assign({}, community), { members: [...community.members, user], membersNumber: community.membersNumber + 1 }));
     }
-    async left(dto) {
+    async leave(dto) {
         const community = await this.communityRepository.findOne({ where: { id: dto.communityId }, relations: ['members'] });
         const user = await this.userService.getById(dto.userId);
         return await this.communityRepository.save(Object.assign(Object.assign({}, community), { members: [...community.members.filter(member => member.id !== dto.userId)], membersNumber: community.membersNumber - 1 }));

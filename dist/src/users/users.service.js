@@ -118,16 +118,14 @@ let UsersService = class UsersService {
         return this.jwtService.sign(payload);
     }
     async getAllPaginate(dto) {
-        var _a;
         const skip = ((dto.page || 1) - 1) * (dto.pageSize || 10);
         const take = (dto.pageSize || 10);
-        console.log("bbf", dto.search);
         const [users, total] = await this.userRepository
             .findAndCount({
             take, skip,
             relations: ['createdHashTags', 'avatar'],
             where: { name: (0, typeorm_2.Like)(`%${dto.search || ""}%`) },
-            order: { [((_a = dto === null || dto === void 0 ? void 0 : dto.orderRule) === null || _a === void 0 ? void 0 : _a.fieldName) || 'createdAt']: dto.orderRule.orderValue || 'DESC' }
+            order: { [(dto === null || dto === void 0 ? void 0 : dto.fieldName) || 'createdAt']: (dto === null || dto === void 0 ? void 0 : dto.orderValue) || 'DESC' }
         });
         return {
             users: users,
@@ -149,8 +147,6 @@ let UsersService = class UsersService {
         if (dto.avatarPath.length) {
             newAvatar = await this.imagesService.create(dto.avatarPath, user.id);
         }
-        console.log('gg', !!dto.favoriteHashTags ? hashTags : user.favoriteHashTags);
-        console.log('gf', newAvatar);
         const newUser = await this.userRepository.save(Object.assign(Object.assign({}, user), { name: dto.name, favoriteHashTags: (!!dto.favoriteHashTags ? hashTags : user.favoriteHashTags), gender: dto.gender, avatar: newAvatar, occasion: dto.occasion, birthdate: dto.birthdate, location: dto.location, about: dto.about }));
         const { passwordHash } = newUser, clientUser = __rest(newUser, ["passwordHash"]);
         return {
@@ -184,7 +180,7 @@ let UsersService = class UsersService {
         return await this.userRepository.findOne({ where: { id }, relations: ['favoriteHashTags'] });
     }
     async removeFavoriteHashTag(dto) {
-        const user = await this.userRepository.findOne({ where: { id: dto.userId }, relations: ['favoriteHashTags'] });
+        const user = await this.userRepository.findOne({ where: { id: dto.userId }, relations: ['favoriteHashTags', 'avatar'] });
         const hashTag = await this.hashTagsService.removeFollower({ userId: dto.userId, hashTagId: dto.hashTagId });
         const newUser = await this.userRepository
             .save(Object.assign(Object.assign({}, user), { favoriteHashTags: [...user.favoriteHashTags.filter(hashTag => hashTag.id !== dto.hashTagId)] }));
@@ -195,7 +191,7 @@ let UsersService = class UsersService {
         };
     }
     async addToFavoriteHashTag(dto) {
-        const user = await this.userRepository.findOne({ where: { id: dto.userId }, relations: ['favoriteHashTags'] });
+        const user = await this.userRepository.findOne({ where: { id: dto.userId }, relations: ['favoriteHashTags', 'avatar'] });
         const hashTag = await this.hashTagsService.addFollower({ user, hashTagId: dto.hashTagId });
         const newUser = await this.userRepository
             .save(Object.assign(Object.assign({}, user), { favoriteHashTags: [...user.favoriteHashTags, hashTag] }));
@@ -207,6 +203,15 @@ let UsersService = class UsersService {
     }
     async getWithCreatedCommunitiesAndCommunities(id) {
         return await this.userRepository.findOne({ where: { id } });
+    }
+    async getMembers(dto) {
+        const skip = ((dto.page || 1) - 1) * (dto.pageSize || 10);
+        const take = (dto.pageSize || 5);
+        const [members, total] = await this.userRepository.findAndCount({ where: { communities: { id: (0, typeorm_2.In)([dto.communityId]) } }, relations: ['communities'], take, skip });
+        return {
+            members,
+            total
+        };
     }
 };
 UsersService = __decorate([

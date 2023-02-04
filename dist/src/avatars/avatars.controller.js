@@ -19,13 +19,9 @@ const multer_1 = require("multer");
 const path_1 = require("path");
 let AvatarsController = class AvatarsController {
     uploadFile(file) {
-        console.log('asdgds', file);
         return {
             avatarPath: file.path
         };
-    }
-    get(path, res) {
-        return res.sendFile((0, path_1.join)(process.cwd(), 'uploads/profileimages/' + path));
     }
 };
 __decorate([
@@ -46,14 +42,6 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], AvatarsController.prototype, "uploadFile", null);
-__decorate([
-    (0, common_1.Get)('get/:path'),
-    __param(0, (0, common_1.Param)('path')),
-    __param(1, (0, common_1.Res)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object]),
-    __metadata("design:returntype", void 0)
-], AvatarsController.prototype, "get", null);
 AvatarsController = __decorate([
     (0, common_1.Controller)('avatars')
 ], AvatarsController);

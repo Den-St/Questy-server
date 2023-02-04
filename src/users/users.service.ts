@@ -1,3 +1,4 @@
+import { PaginatedMembersDto } from './../community/dto/paginatedMembers.dto';
 import { JwtService } from '@nestjs/jwt';
 import { AvatarsService } from '../avatars/avatars.service';
 import { HashTagEntity } from '../entities/hash-tag.entity';
@@ -6,7 +7,7 @@ import { RolesService } from '../roles/roles.service';
 import { UserEntity } from '../entities/user.entity';
 import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { createQueryBuilder, DataSource, Repository, Like } from 'typeorm';
+import { createQueryBuilder, DataSource, Repository, Like, In } from 'typeorm';
 import { CreateUserDto } from './dto/create.dto';
 import { AddQuestionDto } from './dto/add-question.dto';
 import { AddAnswerDto } from './dto/add-answer.dto';
@@ -126,13 +127,12 @@ export class UsersService {
     async getAllPaginate(dto:GetPaginatedDto) {
         const skip = ((dto.page || 1) - 1) * (dto.pageSize || 10);
         const take = (dto.pageSize || 10);
-        console.log("bbf",dto.search)
         const [users,total] = await this.userRepository
         .findAndCount({
             take,skip
             ,relations:['createdHashTags','avatar']
             ,where:{name:Like(`%${dto.search || ""}%`)}
-            ,order:{[dto?.orderRule?.fieldName || 'createdAt']:dto.orderRule.orderValue || 'DESC'}
+            ,order:{[dto?.fieldName || 'createdAt']:dto?.orderValue || 'DESC'}
 
         });
 
@@ -158,8 +158,6 @@ export class UsersService {
         if(dto.avatarPath.length) {
             newAvatar = await this.imagesService.create(dto.avatarPath,user.id);
         }
-        console.log('gg',!!dto.favoriteHashTags ? hashTags : user.favoriteHashTags)
-        console.log('gf',newAvatar)
         const newUser = await this.userRepository.save({...user,name:dto.name,favoriteHashTags:(!!dto.favoriteHashTags ? hashTags : user.favoriteHashTags),
             gender:dto.gender,avatar:newAvatar,occasion:dto.occasion,birthdate:dto.birthdate,location:dto.location,about:dto.about});
         const {passwordHash,...clientUser} = newUser;
@@ -207,7 +205,7 @@ export class UsersService {
    }
 
    async removeFavoriteHashTag(dto:{userId:number,hashTagId:number}) {
-    const user = await this.userRepository.findOne({where:{id:dto.userId},relations:['favoriteHashTags']});
+    const user = await this.userRepository.findOne({where:{id:dto.userId},relations:['favoriteHashTags','avatar']});
     const hashTag = await this.hashTagsService.removeFollower({userId:dto.userId,hashTagId:dto.hashTagId});
 
     const newUser = await this.userRepository
@@ -221,7 +219,7 @@ export class UsersService {
    }
 
    async addToFavoriteHashTag(dto:{userId:number,hashTagId:number}) {
-    const user = await this.userRepository.findOne({where:{id:dto.userId},relations:['favoriteHashTags']});
+    const user = await this.userRepository.findOne({where:{id:dto.userId},relations:['favoriteHashTags','avatar']});
     const hashTag = await this.hashTagsService.addFollower({user,hashTagId:dto.hashTagId});
 
     const newUser = await this.userRepository
@@ -241,5 +239,15 @@ export class UsersService {
     
    }
 
+   async getMembers(dto:PaginatedMembersDto) {
+    const skip = ((dto.page || 1) - 1) * (dto.pageSize || 10);
+    const take = (dto.pageSize || 5);
+    const [members,total] = await this.userRepository.findAndCount({where:{communities:{id:In([dto.communityId])}},relations:['communities'],take,skip});
+
+    return {
+        members,
+        total
+    }
+   }
   
 }

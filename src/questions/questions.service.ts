@@ -55,15 +55,14 @@ export class QuestionsService {
     }
 
     async getByUserIdPaginated(dto:GetByUserIdPaginatedDto){
-        const skip = ((dto.page || 1) - 1) * (dto.pageSize || 10);
-        const take = (dto.pageSize || 10);
+        const skip = ((+dto.page || 1) - 1) * (+dto.pageSize || 10);
+        const take = (+dto.pageSize || 10);
 
         const [questions,total] = await this.questionsRepository
             .findAndCount({
                 where:{'creator':{'id':dto.userId}},
                 take,skip,relations:['hashTags']
-                ,order:{[dto?.orderRule?.fieldName || 'createdAt']:dto.orderRule.orderValue || 'DESC'}
-
+                ,order:{[dto?.fieldName || 'createdAt']:dto?.orderValue || 'DESC'}
             });
 
         return {
@@ -76,14 +75,13 @@ export class QuestionsService {
         const skip = ((dto.page || 1) - 1) * (dto.pageSize || 10);
         const take = (dto.pageSize || 10);
         const hashTags = dto?.hashTags?.split(";").filter(hashTag => hashTag.length);
-        // if(dto.hashTags?.length) {
 
         const [questions,total] = await this.questionsRepository
             .findAndCount({
                 where:{hashTags:(hashTags?.length ? {name:In(hashTags)} : null),title:Like(`%${dto.search || ''}%`),haveCorrectAnswer:(dto.onlyAnswered === false ? null : true)}
                 ,skip
                 ,take
-                ,order:{[dto?.orderRule?.fieldName || 'createdAt']:dto.orderRule.orderValue || 'DESC'}
+                ,order:{[dto?.fieldName || 'createdAt']:dto?.orderValue || 'DESC'}
                 ,relations:['hashTags']
             });
 
@@ -111,7 +109,6 @@ export class QuestionsService {
 
     async get(id:number) {
         const question = await this.questionsRepository.findOne({where:{id},relations:['ratedUpUsers','ratedDownUsers','subscribers']});
-        console.log('q',question)
         return question;
     }
 
@@ -147,17 +144,14 @@ export class QuestionsService {
         );
         
         if(!!question.ratedUpUsers.filter(ratedUpUser => ratedUpUser.id === user.id).length){
-            console.log('bv')
             return await this.questionsRepository.save(
                 {...question,rating:question.rating - 1,ratedUpUsers:[...question.ratedUpUsers.filter(ratedUpUser => ratedUpUser.id !== user.id)]});
         }
 
         if(!!question.ratedDownUsers.filter(ratedUpUser => ratedUpUser.id === user.id).length){
-            console.log('bv')
             return await this.questionsRepository.save(
                 {...question,rating:question.rating + 1,ratedDownUsers:[...question.ratedDownUsers.filter(ratedDownUser => ratedDownUser.id !== user.id)]});
         }
-        console.log('bv')
     }
 
    async view(dto:ViewDto) {
@@ -208,19 +202,15 @@ export class QuestionsService {
     });
 
     const {hashTags} = await this.hashTagsService.getPaginated({
-        orderRule:{
-            fieldName:'questionsNumber',
-            orderValue:'DESC'
-        },
+        fieldName:'questionsNumber',
+        orderValue:'DESC',
         page:1,
         pageSize:5,
         search:name
     });
     const {users} = await this.usersService.getAllPaginate({
-        orderRule:{
-            fieldName:'numberOfAnswers',
-            orderValue:'DESC'
-        },
+        fieldName:'numberOfAnswers',
+        orderValue:'DESC',
         page:1,
         pageSize:5,
         search:name

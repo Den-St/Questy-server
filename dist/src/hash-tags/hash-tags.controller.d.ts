@@ -1,7 +1,6 @@
 import { CreateHashTagDto } from './dto/create.dto';
 import { GetByUserIdPaginatedDto } from 'src/answers/dto/getByUserIdPaginated.dto';
 import { GetPaginatedDto } from 'src/users/dto/GetPaginated.dto';
-import { GetPaginatedQuestions } from './dto/getPaginatedQuestions.dto';
 import { SearchHashTagsByName } from './dto/search-by-name.dto';
 import { HashTagsService } from './hash-tags.service';
 export declare class HashTagsController {
@@ -17,5 +16,4 @@ export declare class HashTagsController {
         hashTags: import("../entities/hash-tag.entity").HashTagEntity[];
         total: number;
     }>;
-    getPaginatedQuestions(dto: GetPaginatedQuestions): Promise<void>;
 }

@@ -13,6 +13,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersController = void 0;
+const paginatedMembers_dto_1 = require("./../community/dto/paginatedMembers.dto");
 const set_detailed_info_dto_1 = require("./dto/set-detailed-info.dto");
 const create_dto_1 = require("./dto/create.dto");
 const users_service_1 = require("./users.service");
@@ -55,6 +56,9 @@ let UsersController = class UsersController {
     async addToFavoriteHashTag(dto) {
         return await this.usersService.addToFavoriteHashTag(dto);
     }
+    async getMembers(dto) {
+        return await this.usersService.getMembers(dto);
+    }
 };
 __decorate([
     (0, common_1.Post)('create'),
@@ -71,8 +75,8 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "setDetailedInfo", null);
 __decorate([
-    (0, common_1.Post)('getAllPaginated'),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.Get)('getAllPaginated/:page/:pageSize/:fieldName/:orderValue/:search?'),
+    __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [GetPaginated_dto_1.GetPaginatedDto]),
     __metadata("design:returntype", Promise)
@@ -133,6 +137,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "addToFavoriteHashTag", null);
+__decorate([
+    (0, common_1.Get)('getMembers/:page/:pageSize/:communityId'),
+    __param(0, (0, common_1.Param)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [paginatedMembers_dto_1.PaginatedMembersDto]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "getMembers", null);
 UsersController = __decorate([
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])

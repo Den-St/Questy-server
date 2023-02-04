@@ -1,3 +1,4 @@
+import { PaginatedMembersDto } from './../community/dto/paginatedMembers.dto';
 import { SetUserDetailedInfoDto } from './dto/set-detailed-info.dto';
 import { CreateUserDto } from './dto/create.dto';
 import { UsersService } from './users.service';
@@ -237,5 +238,9 @@ export declare class UsersController {
             messages: import("../entities/message.entity").MessageEntity[];
         };
         token: string;
+    }>;
+    getMembers(dto: PaginatedMembersDto): Promise<{
+        members: import("../entities/user.entity").UserEntity[];
+        total: number;
     }>;
 }
